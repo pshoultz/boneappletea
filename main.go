@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/pshoultz/boneappletea/api"
+	"github.com/boneappletea/api"
 )
 
 func main() {

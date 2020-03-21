@@ -6,9 +6,15 @@ import (
 //"time"
 )
 
-func Start() {
+func start() {
 
 }
 
+func GetWord() []string {
+	var bats []string
+	return bats
+}
+
 func setup() {
+
 }

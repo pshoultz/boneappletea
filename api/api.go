@@ -1,9 +1,9 @@
 package api
 
 import (
+	"github.com/boneappletea/boneappletea"
+	"github.com/boneappletea/models"
 	"github.com/gin-gonic/gin"
-	"github.com/pshoultz/boneappletea/boneappletea"
-	"github.com/pshoultz/boneappletea/models"
 )
 
 func Start() {
@@ -38,5 +38,5 @@ func Start() {
 		word.Dislikes = 0
 	})
 
-	router.RunUnix(":8080")
+	router.Run(":8080")
 }
