@@ -19,7 +19,9 @@ func Start() {
 	//NOTE: pass to mongo package to query words and the bat them up
 	router.GET("/bat", func(c *gin.Context) {
 		sentence := c.GetHeader("sentence")
-		bat := boneappletea.Generate(sentence)
+		var bat models.Word
+		bat = boneappletea.Generate(sentence)
+
 		c.JSON(200, gin.H{
 			"boneappletea": bat,
 		})
@@ -36,6 +38,11 @@ func Start() {
 		word.Flag = false
 		word.Likes = 0
 		word.Dislikes = 0
+	})
+
+	//NOTE: remove a word or remove one of the values the array?
+	router.DELETE("/delete", func(c *gin.Context) {
+
 	})
 
 	router.Run(":8080")
