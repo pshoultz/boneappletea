@@ -12,8 +12,9 @@ func Generate(sentence string) models.Word {
 	var bat models.Word
 	words = strings.Split(sentence, " ")
 
-	//	for _, word := range words {
 	bat = mongo.GetWord(words[0])
+	//for _, word := range words {
+	//	bat = mongo.GetWord(word)
 	//}
 
 	return bat

@@ -16,13 +16,15 @@ import (
 func GetWord(root string) models.Word {
 	var words models.Word
 
-	clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
+	//clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
+	clientOpts := options.Client().ApplyURI("mongodb://tji1498a.com:27017/?connect=direct")
 	client, err := mongo.Connect(context.TODO(), clientOpts)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	//filter := bson.M{"root": root}
 	filter := bson.M{"root": "degrees"}
 	collection := client.Database("boneappletea").Collection("words")
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
