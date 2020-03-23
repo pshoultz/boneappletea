@@ -2,41 +2,36 @@ package mongo
 
 import (
 	"context"
-	"fmt"
 	"github.com/boneappletea/models"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"log"
 	"time"
 )
 
-func connect() {
-	var (
-		client   *mongo.Client
-		mongoURL = "mongodb://localhost:27017"
-	)
-
-	// Initialize a new mongo client with options
-	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURL))
-
-	// Connect the mongo client to the MongoDB server
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
-	err = client.Connect(ctx)
-
-	// Ping MongoDB
-	ctx, _ = context.WithTimeout(context.Background(), 5*time.Second)
-	if err = client.Ping(ctx, readpref.Primary()); err != nil {
-		fmt.Println("could not ping to mongo db service: %v\n", err)
-		return
-	}
-
-	fmt.Println("connected to nosql database:", mongoURL)
-}
+//func connect() *mongo.Client {
+//}
 
 func GetWord(root string) models.Word {
-	var word models.Word
-	connect()
-	return word
+	var words models.Word
+
+	clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
+	client, err := mongo.Connect(context.TODO(), clientOpts)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	filter := bson.M{"root": "degrees"}
+	collection := client.Database("boneappletea").Collection("words")
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	err = collection.FindOne(ctx, filter).Decode(&words)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return words
 }
 
 func setup() {
