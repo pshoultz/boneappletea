@@ -1,23 +1,25 @@
 package boneappletea
 
 import (
+	"fmt"
 	"github.com/boneappletea/models"
 	"github.com/boneappletea/mongo"
 	"strings"
 )
 
 //NOTE: call db here and return our struct
-func Generate(sentence string) models.Word {
+func Generate(sentence string) string {
 	var words []string
-	var bat models.Word
+	var newSentence = ""
 	words = strings.Split(sentence, " ")
 
-	bat = mongo.GetWord(words[0])
-	//for _, word := range words {
-	//	bat = mongo.GetWord(word)
-	//}
+	for _, word := range words {
+		var bat models.Word
+		bat = mongo.GetWord(word)
+		fmt.Println(word, bat)
+	}
 
-	return bat
+	return newSentence
 }
 
 //func Update(word models.Word) {
