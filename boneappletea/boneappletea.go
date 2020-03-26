@@ -15,9 +15,11 @@ func Generate(sentence string) string {
 
 	for _, word := range words {
 		var bat models.Word
-		bat = mongo.GetWord(word)
+		bat = mongo.GetWord(strings.ToLower(word))
 		fmt.Println(word, bat)
 	}
+
+	//NOTE: 2nd for loop to find the word to replace from original sentence
 
 	return newSentence
 }
