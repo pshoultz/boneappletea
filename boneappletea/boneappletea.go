@@ -1,6 +1,7 @@
 package boneappletea
 
 import (
+	"fmt"
 	"github.com/boneappletea/models"
 	"github.com/boneappletea/mongo"
 	"math/rand"
@@ -22,8 +23,10 @@ func Generate(sentence string) string {
 
 		//NOTE: if we get a hit out of the db, replace the word in the array
 		if bat.Root != "" {
+			fmt.Println(bat)
 			//NOTE: our boneappletea is an rng of all the values supplied to the db
-			rng := rand.Intn(rand.Intn(len(bat.Values)))
+			length := len(bat.Values)
+			rng := rand.Intn(length)
 
 			//NOTE:replace old sentence with new word/words
 			words[index] = bat.Values[rng]

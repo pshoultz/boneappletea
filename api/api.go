@@ -40,6 +40,11 @@ func Start() {
 		word.Dislikes = 0
 	})
 
+	//NOTE: mongo call to update an existing word
+	router.POST("/update", func(c *gin.Context) {
+
+	})
+
 	//NOTE: remove a word or remove one of the values the array?
 	router.DELETE("/delete", func(c *gin.Context) {
 
