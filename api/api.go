@@ -1,9 +1,11 @@
 package api
 
 import (
+	"fmt"
 	"github.com/boneappletea/boneappletea"
 	"github.com/boneappletea/models"
 	"github.com/gin-gonic/gin"
+	"strconv"
 )
 
 func Start() {
@@ -31,17 +33,24 @@ func Start() {
 	router.POST("/add", func(c *gin.Context) {
 		var word models.Word
 		var values []string
-		values = append(values, c.Query("value"))
+		var flag, _ = strconv.ParseBool(c.GetHeader("flag"))
+		var likes = 0
+		var dislikes = 0
 
-		word.Root = c.Query("root")
+		values = append(values, c.GetHeader("value"))
+		word.Root = c.GetHeader("root")
 		word.Values = values
-		word.Flag = false
-		word.Likes = 0
-		word.Dislikes = 0
-	})
+		word.Flag = flag
+		word.Likes = likes
+		word.Dislikes = dislikes
 
-	//NOTE: mongo call to update an existing word
-	router.POST("/update", func(c *gin.Context) {
+		fmt.Println(word)
+
+		code, message := boneappletea.Add(word)
+
+		c.JSON(code, gin.H{
+			"message": message,
+		})
 
 	})
 

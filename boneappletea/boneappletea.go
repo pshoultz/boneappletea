@@ -27,6 +27,7 @@ func Generate(sentence string) string {
 			//NOTE: our boneappletea is an rng of all the values supplied to the db
 			length := len(bat.Values)
 			rng := rand.Intn(length)
+			//fmt.Println(length, rng)//NOTE: i was wondering if my rng was ranging right for the length of my array
 
 			//NOTE:replace old sentence with new word/words
 			words[index] = bat.Values[rng]
@@ -37,6 +38,12 @@ func Generate(sentence string) string {
 	newSentence = strings.Join(words, " ")
 
 	return newSentence
+}
+
+func Add(bat models.Word) (int, string) {
+	code, message := mongo.CreateBat(bat)
+
+	return code, message
 }
 
 //func Update(word models.Word) {
