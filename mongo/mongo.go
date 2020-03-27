@@ -5,6 +5,7 @@ import (
 	"github.com/boneappletea/models"
 	"go.mongodb.org/mongo-driver/bson"
 	//"go.mongodb.org/mongo-driver/bson/primitive"
+	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
@@ -14,6 +15,7 @@ import (
 //}
 
 func GetWord(root string) models.Word {
+	fmt.Println(root)
 	var word models.Word
 
 	//clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
