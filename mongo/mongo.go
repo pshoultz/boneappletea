@@ -61,8 +61,6 @@ func CreateBat(word models.Word) (int, string) {
 		client := connect()
 		collection := client.Database("boneappletea").Collection("words")
 
-		//result, err := collection.InsertOne(context.TODO(), word)
-		//fmt.Println(result)
 		_, err := collection.InsertOne(context.TODO(), word)
 
 		client.Disconnect(context.TODO())
@@ -83,7 +81,7 @@ func updateBat(word models.Word) (int, string) {
 	filter := bson.M{"root": word.Root}
 
 	/*NOTE : word.Values when we're creating no boneappleteas is always an array for returning purposes.
-	However for new entries and updates, there is only ever 1 variable, in the array so thats why we use [0] element just to pull it out to push onto the db array field
+	However for new entries and updates, there is only ever 1 value in this array, in the array so thats why we use [0] element just to pull it out to push onto the db array field
 	*/
 	update := bson.D{
 		{"$push", bson.D{
@@ -94,8 +92,6 @@ func updateBat(word models.Word) (int, string) {
 	client := connect()
 	collection := client.Database("boneappletea").Collection("words")
 
-	//result, err := collection.InsertOne(context.TODO(), filter, update)
-	//fmt.Println(result)
 	_, err := collection.UpdateOne(context.TODO(), filter, update)
 
 	if err != nil {
