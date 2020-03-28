@@ -6,6 +6,7 @@ import (
 	"github.com/boneappletea/models"
 	"github.com/gin-gonic/gin"
 	"strconv"
+	"strings"
 )
 
 func Start() {
@@ -37,8 +38,8 @@ func Start() {
 		var likes = 0
 		var dislikes = 0
 
-		values = append(values, c.GetHeader("value"))
-		word.Root = c.GetHeader("root")
+		values = append(values, strings.ToLower(c.GetHeader("value")))
+		word.Root = strings.ToLower(c.GetHeader("root"))
 		word.Values = values
 		word.Flag = flag
 		word.Likes = likes
