@@ -35,15 +35,11 @@ func Start() {
 		var word models.Word
 		var values []string
 		var flag, _ = strconv.ParseBool(c.GetHeader("flag"))
-		var likes = 0
-		var dislikes = 0
 
 		values = append(values, strings.ToLower(c.GetHeader("value")))
 		word.Root = strings.ToLower(c.GetHeader("root"))
 		word.Values = values
 		word.Flag = flag
-		word.Likes = likes
-		word.Dislikes = dislikes
 
 		fmt.Println(word)
 

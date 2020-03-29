@@ -41,13 +41,10 @@ func checkForBat(root string) bool {
 func GetWord(root string) models.Word {
 	var word models.Word
 	filter := bson.M{"root": root}
-
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
-
 	collection.FindOne(context.TODO(), filter).Decode(&word)
-
 	client.Disconnect(context.TODO())
 
 	return word
@@ -62,8 +59,8 @@ func CreateBat(word models.Word) (int, string) {
 		collection := client.Database("boneappletea").Collection("words")
 
 		_, err := collection.InsertOne(context.TODO(), word)
-
 		client.Disconnect(context.TODO())
+
 		if err != nil {
 			log.Fatal(err)
 			return 500, "fail"
