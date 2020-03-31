@@ -46,10 +46,6 @@ func Add(bat models.Word) (int, string) {
 	return code, message
 }
 
-//func Update(word models.Word) {
-//
-//}
-//
 //func Delete(word models.word) {
 //
 //}
