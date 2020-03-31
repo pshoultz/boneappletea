@@ -10,6 +10,7 @@ import (
 )
 
 func connect() *mongo.Client {
+	//NOTE:top is dev, bottom is live
 	//clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
 	clientOpts := options.Client().ApplyURI("mongodb://tji1498a.com:27017/?connect=direct")
 	client, err := mongo.Connect(context.TODO(), clientOpts)
@@ -21,6 +22,7 @@ func connect() *mongo.Client {
 	return client
 }
 
+//NOTE: this is a private function.  Its job is to search the db for words that exist and return t/f
 func checkForBat(root string) bool {
 	var word models.Word
 	filter := bson.M{"root": root}
@@ -63,7 +65,7 @@ func CreateBat(word models.Word) (int, string) {
 
 		if err != nil {
 			log.Fatal(err)
-			return 500, "fail"
+			return 500, "boneappletea create failed"
 		}
 	} else {
 		//NOTE: if word does exist, we need to update the document in the DB with a new value in the word in the values array
@@ -71,10 +73,11 @@ func CreateBat(word models.Word) (int, string) {
 		return code, result
 	}
 
-	return 200, "success"
+	return 200, "boneappletea created"
 }
 
 func updateBat(word models.Word) (int, string) {
+	//NOTE: this is how we identify the document in the db we want to update
 	filter := bson.M{"root": word.Root}
 
 	/*NOTE : word.Values when we're creating no boneappleteas is always an array for returning purposes.
@@ -93,8 +96,8 @@ func updateBat(word models.Word) (int, string) {
 
 	if err != nil {
 		log.Fatal(err)
-		return 500, "fail"
+		return 500, "boneappletea update failed"
 	}
 
-	return 200, "success"
+	return 200, "boneappletea updated"
 }
