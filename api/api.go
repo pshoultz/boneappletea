@@ -32,7 +32,8 @@ func Start() {
 	router.POST("/add", func(c *gin.Context) {
 		var word models.Word
 		var values []string
-		var flag = false
+		var flag bool
+		flag = false
 		values = append(values, strings.ToLower(c.GetHeader("value")))
 
 		word.Root = strings.ToLower(c.GetHeader("root"))
