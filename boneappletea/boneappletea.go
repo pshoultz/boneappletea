@@ -46,6 +46,8 @@ func Add(bat models.Word) (int, string) {
 	return code, message
 }
 
-//func Delete(word models.word) {
-//
-//}
+func Delete(word models.Word) (int, string) {
+	code, message := mongo.DeleteBat(word)
+
+	return code, message
+}
