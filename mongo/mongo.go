@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
+	"fmt"
 )
 
 func connect() *mongo.Client {
@@ -100,4 +101,66 @@ func updateBat(word models.Word) (int, string) {
 	}
 
 	return 200, "boneappletea updated"
+}
+
+func contains(arr []string, str string) bool {
+	for _, a := range arr {
+	   if a == str {
+		  return true
+	   }
+	}
+	return false
+}
+
+func DeleteBat(word models.Word) (int, string) {
+	found := checkForBat(word.Root)
+
+	if found {
+		// this is how we identify the document in the db we want to make a deletion on
+		filter := bson.M{"root": word.Root}
+		
+		client := connect()
+		collection := client.Database("boneappletea").Collection("words")
+		fmt.Println("values", word.Values)
+		fmt.Println("length", len(word.Values))
+
+		batToDelete := word.Values[0]
+
+		currentWord := GetWord(word.Root)
+		batExists := contains(currentWord.Values, batToDelete)
+
+		batsInDoc := len(currentWord.Values)
+
+		if batsInDoc > 1 && batExists {
+			// only remove the item provided
+			update := bson.D{
+				{"$pull", bson.D{
+					{"values", batToDelete},
+				}},
+			}
+			
+			_, err := collection.UpdateOne(context.TODO(), filter, update)
+			client.Disconnect(context.TODO())
+			if err != nil {
+				log.Fatal(err)
+				return 500, "boneappletea delete failed"
+			} else {
+				return 200, "boneappletea deleted"
+			}
+		} else if batsInDoc == 1 && batExists {
+			// otherwise we delete the document
+			_, err := collection.DeleteOne(context.TODO(), filter)
+			client.Disconnect(context.TODO())
+			if err != nil {
+				log.Fatal(err)
+				return 500, "root delete failed"
+			} else {
+				return 200, "root deleted"
+			}
+		} else {
+			return 500, "boneappletea not found"
+		}
+	} else {
+		return 500, "root not found"
+	}
 }

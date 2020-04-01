@@ -47,23 +47,22 @@ func Start() {
 
 	})
 
-	//NOTE: remove a word or remove one of the values the array?
+	// removes a word (document) if the last entry is deleted, otherwise just removes the boneappletea entry in the array
 	router.DELETE("/delete", func(c *gin.Context) {
-		//NOTE: this shouldn't delete the whole word but rather one of the indexs in the array
-		/*
-			the header should contain the root word and the value that is going to be deleted.  This word may already exist, we just want to remove one of the values in the array
-			this is the c.GetHeader property i'm using above.  You can set this up with postman really easily.
-		*/
+		var word models.Word
+		var values []string
+		var flag = false
+		values = append(values, strings.ToLower(c.GetHeader("value")))
 
-		/*EXAMPLE:
-		in the databse we have word called paul.  paul has 2 boneappletea's, we want to remove the [1] index
-		root: "paul", values: ["abc", "qwe"], flag: true
+		word.Root = strings.ToLower(c.GetHeader("root"))
+		word.Values = values
+		word.Flag = flag
 
-		this function should remove "qwe" for example but keep "abc".  The whole document isn't gone, just the index of "qwe"
+		code, message := boneappletea.Delete(word)
 
-		NOTE:
-		if this word only has one index and its deleted.  The whole word should be removed from the db.
-		*/
+		c.JSON(code, gin.H{
+			"message": message,
+		})
 	})
 
 	//NOTE: we'll need a way to authorize words.  This will be hooked into our angular application where we login and get back words to authorize
