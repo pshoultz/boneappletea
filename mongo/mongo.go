@@ -155,6 +155,7 @@ func DeleteBat(word models.Word) (int, string) {
 				return 200, "root deleted"
 			}
 		} else {
+			client.Disconnect(context.TODO())
 			return 500, "boneappletea not found"
 		}
 	} else {
