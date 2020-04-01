@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
-	"fmt"
 )
 
 func connect() *mongo.Client {
@@ -121,8 +120,6 @@ func DeleteBat(word models.Word) (int, string) {
 		
 		client := connect()
 		collection := client.Database("boneappletea").Collection("words")
-		fmt.Println("values", word.Values)
-		fmt.Println("length", len(word.Values))
 
 		batToDelete := word.Values[0]
 
