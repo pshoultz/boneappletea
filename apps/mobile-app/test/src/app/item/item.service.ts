@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { getFile, getImage, getJSON, getString, request, HttpResponse } from "tns-core-modules/http";
 
-
 import { Item } from "./item";
 
 @Injectable({
@@ -36,6 +35,7 @@ export class ItemService {
     getItems(): Array<Item> {
         console.log(" !!!!! !!!!! loading getItems()");
         this.test();
+        //this.test2();
         return this.items;
     }
 
@@ -43,7 +43,7 @@ export class ItemService {
         return this.items.filter((item) => item.id === id)[0];
     }
 
-
+    //NOTE: hit test route
     test(): void{
         //getJSON("https://httpbin.org/get").then((r: any) => {
         getJSON("http://10.0.2.2:8080/").then((r: any) => {
@@ -60,5 +60,20 @@ export class ItemService {
         //    }).catch((e) => {
         //        console.log(e);
         //});
+    }
+
+    //NOTE: hit bat route with sentence
+    test2(): void{
+    console.log("in test 2");
+    request({
+        url: "http://10.0.2.2:8080/bat",
+        method: "GET",
+        headers: { "sentence": "paul is nocturnal" },
+        }).then(response => {
+            var result = response.content.toJSON();
+            console.log(result);
+        }, error => {
+            console.error(error);
+        });
     }
 }
