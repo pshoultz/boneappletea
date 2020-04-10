@@ -16,10 +16,15 @@ export class ApiService {
     }
 
     //NOTE: we should have ids on each BAT so we can find them in the DB faster
-    AcceptBat(){
+    AcceptBat(id: string){
+        //NOTE: hit router for accept then attach a header of 'id' to it.
+        //once in the API, pull the id off the header
+        //search for the document in the DB with this id
+        //set the flag to true
     }
 
     //NOTE: we should have ids on each BAT so we can find them in the DB faster
-    DeleteBat(){
+    DenyBat(id: string){
+        //NOTE: this might take a little more thinking but I think the delete function should work here
     }
 }

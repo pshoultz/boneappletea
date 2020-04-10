@@ -22,12 +22,14 @@ export class BoneappleteaCardComponent implements OnInit {
         })
     }
 
-    accept(bat: any){
+    accept(id: string){
         debugger
+        this.api.AcceptBat(id);
     }
 
-    deny(bat: any){
+    deny(id: string){
         debugger
+        this.api.DenyBat(id);
     }
 
 }
