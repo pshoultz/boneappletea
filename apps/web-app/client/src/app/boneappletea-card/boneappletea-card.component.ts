@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoneappleteaCardComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }

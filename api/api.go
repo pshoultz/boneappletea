@@ -3,12 +3,19 @@ package api
 import (
 	"github.com/boneappletea/boneappletea"
 	"github.com/boneappletea/models"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"strings"
 )
 
 func Start() {
 	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:  []string{"*"},
+		AllowMethods:  []string{"PUT", "POST", "GET"},
+		AllowHeaders:  []string{"Origin"},
+		ExposeHeaders: []string{"Content-Length"},
+	}))
 
 	//NOTE: test route for debugging ect...
 	router.GET("/", func(c *gin.Context) {
