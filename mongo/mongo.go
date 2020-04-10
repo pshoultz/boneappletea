@@ -2,6 +2,7 @@ package mongo
 
 import (
 	"context"
+	"fmt"
 	"github.com/boneappletea/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -20,6 +21,25 @@ func connect() *mongo.Client {
 	}
 
 	return client
+}
+
+//func GetBats() []models.Word {
+func GetBats() {
+	var words []models.Word
+	filter := bson.M{}
+	client := connect()
+
+	collection := client.Database("boneappletea").Collection("words")
+	cursor, err := collection.Find(context.TODO(), filter)
+
+	err = cursor.All(context.TODO(), &words)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(words)
+	client.Disconnect(context.TODO())
 }
 
 //NOTE: this is a private function.  Its job is to search the db for words that exist and return t/f
@@ -104,9 +124,9 @@ func updateBat(word models.Word) (int, string) {
 
 func contains(arr []string, str string) bool {
 	for _, a := range arr {
-	   if a == str {
-		  return true
-	   }
+		if a == str {
+			return true
+		}
 	}
 	return false
 }
@@ -117,7 +137,7 @@ func DeleteBat(word models.Word) (int, string) {
 	if found {
 		// this is how we identify the document in the db we want to make a deletion on
 		filter := bson.M{"root": word.Root}
-		
+
 		client := connect()
 		collection := client.Database("boneappletea").Collection("words")
 
@@ -135,7 +155,7 @@ func DeleteBat(word models.Word) (int, string) {
 					{"values", batToDelete},
 				}},
 			}
-			
+
 			_, err := collection.UpdateOne(context.TODO(), filter, update)
 			client.Disconnect(context.TODO())
 			if err != nil {

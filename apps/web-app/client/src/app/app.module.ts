@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BoneappleteaComponent } from './boneappletea/boneappletea.component';
+import { BoneappleteaCardComponent } from './boneappletea-card/boneappletea-card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BoneappleteaComponent,
+    BoneappleteaCardComponent
   ],
   imports: [
     BrowserModule,

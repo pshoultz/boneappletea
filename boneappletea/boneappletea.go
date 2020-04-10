@@ -40,6 +40,11 @@ func Generate(sentence string) string {
 	return newSentence
 }
 
+//func Get() (int, []models.Word) {
+func Get() {
+	mongo.GetBats()
+}
+
 func Add(bat models.Word) (int, string) {
 	code, message := mongo.CreateBat(bat)
 

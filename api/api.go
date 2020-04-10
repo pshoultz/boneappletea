@@ -72,5 +72,15 @@ func Start() {
 		//The angular application will let us mark these as true and the word can be used in the application.
 	})
 
+	//NOTE: gets all boneappleteas in the db who have flags set to false
+	router.GET("/get", func(c *gin.Context) {
+
+		boneappletea.Get()
+
+		c.JSON(200, gin.H{
+			"boneappleteas": "fetched bats",
+		})
+	})
+
 	router.Run(":8080")
 }
