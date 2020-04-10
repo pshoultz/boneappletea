@@ -5,7 +5,9 @@ import (
 	"github.com/boneappletea/models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 func Start() {
@@ -46,6 +48,7 @@ func Start() {
 		word.Root = strings.ToLower(c.GetHeader("root"))
 		word.Values = values
 		word.Flag = flag
+		word.ID = makeID()
 
 		code, message := boneappletea.Add(word)
 
@@ -55,7 +58,15 @@ func Start() {
 
 	})
 
-	// removes a word (document) if the last entry is deleted, otherwise just removes the boneappletea entry in the array
+	//NOTE: after a word has been added, we still have to accept it via the web app
+	router.POST("/accept", func(*gin.context) {
+		/*NOTE:
+		each word in the DB has an ID, we use the query from the post to get it.
+		we use the ID here to find the document and then sent it flags to true.  Once true, the word is available for use in the mobile app
+		*/
+	})
+
+	//NOTE:removes a word (document) if the last entry is deleted, otherwise just removes the boneappletea entry in the array
 	router.DELETE("/delete", func(c *gin.Context) {
 		var word models.Word
 		var values []string
@@ -92,4 +103,16 @@ func Start() {
 	})
 
 	router.Run(":8080")
+}
+
+func makeID() string {
+	rand.Seed(time.Now().UnixNano())
+	length := 16
+	bytes := make([]byte, length)
+	characters := []rune("abcdefghijklmnopqrstuvwxyz123456789")
+	for i := 0; i < length; i++ {
+		bytes[i] = byte(characters[rand.Intn(35)])
+	}
+
+	return string(bytes)
 }

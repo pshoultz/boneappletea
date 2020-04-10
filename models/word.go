@@ -5,6 +5,7 @@ package models
 type Word struct {
 	//Flag   bool     `json:"flag,omitempty" bson:"flag,omitempty"`
 	Flag   bool
+	ID     string
 	Root   string   `json:"root,omitempty" bson:"root,omitempty"`
 	Values []string `json:"values,omitempty" bson:"values,omitempty"`
 }
