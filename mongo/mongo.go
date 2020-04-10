@@ -2,7 +2,6 @@ package mongo
 
 import (
 	"context"
-	"fmt"
 	"github.com/boneappletea/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -23,10 +22,10 @@ func connect() *mongo.Client {
 	return client
 }
 
-//func GetBats() []models.Word {
-func GetBats() {
+//NOTE: get BATS that are flagged as false meaning that isn't been authenticated by us yet
+func GetBats() []models.Word {
 	var words []models.Word
-	filter := bson.M{}
+	filter := bson.M{"flag": false}
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
@@ -38,8 +37,9 @@ func GetBats() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(words)
 	client.Disconnect(context.TODO())
+
+	return words
 }
 
 //NOTE: this is a private function.  Its job is to search the db for words that exist and return t/f

@@ -74,11 +74,13 @@ func Start() {
 
 	//NOTE: gets all boneappleteas in the db who have flags set to false
 	router.GET("/get", func(c *gin.Context) {
+		var words []models.Word
+		var code int
 
-		boneappletea.Get()
+		code, words = boneappletea.Get()
 
-		c.JSON(200, gin.H{
-			"boneappleteas": "fetched bats",
+		c.JSON(code, gin.H{
+			"boneappleteas": words,
 		})
 	})
 

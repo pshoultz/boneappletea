@@ -40,9 +40,19 @@ func Generate(sentence string) string {
 	return newSentence
 }
 
-//func Get() (int, []models.Word) {
-func Get() {
-	mongo.GetBats()
+//NOTE: get all bats in the db.  This should filter for words that have a flag of false.  That means they haven't been authenticated by us.
+func Get() (int, []models.Word) {
+	var code int
+	var bats []models.Word
+	bats = mongo.GetBats()
+
+	if bats != nil {
+		code = 200
+	} else {
+		code = 400
+	}
+
+	return code, bats
 }
 
 func Add(bat models.Word) (int, string) {
