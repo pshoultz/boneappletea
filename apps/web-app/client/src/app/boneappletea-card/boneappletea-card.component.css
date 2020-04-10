@@ -1,0 +1,18 @@
+.root{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.value{
+    font-size:25px;
+    font-style:italic;
+}
+
+.spacing{
+    width:20rem;
+    margin:10px;
+}
+
+.accept{
+    float:right;
+}
