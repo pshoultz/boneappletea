@@ -59,7 +59,7 @@ func Start() {
 	})
 
 	//NOTE: after a word has been added, we still have to accept it via the web app
-	router.POST("/accept", func(*gin.context) {
+	router.POST("/accept", func(c *gin.Context) {
 		/*NOTE:
 		each word in the DB has an ID, we use the query from the post to get it.
 		we use the ID here to find the document and then sent it flags to true.  Once true, the word is available for use in the mobile app
