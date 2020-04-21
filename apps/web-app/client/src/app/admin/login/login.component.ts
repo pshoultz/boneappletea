@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     }
 
     showModal(){
-        $('#login-modal').modal('show');
+        //$('#login-modal').modal('show');
     }
 
 }

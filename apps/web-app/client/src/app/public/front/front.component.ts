@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FrontComponent implements OnInit {
 
-    public bat: string = "";
     public searchValue: string = "";
+    public bat: string = "test phrase test phrase";
 
     constructor() { }
 
