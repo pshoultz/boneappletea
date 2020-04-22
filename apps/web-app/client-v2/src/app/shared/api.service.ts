@@ -13,4 +13,10 @@ export class ApiService {
     GetBats(){
         return this.http.get("http://127.0.0.1:8080/get");
     }
+
+    MakeBat(sentence: string):string{
+        let bat: string = "dummy dummy";
+
+        return bat;
+    }
 }

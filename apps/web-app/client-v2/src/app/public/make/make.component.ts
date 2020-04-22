@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MakeComponent implements OnInit {
 
-  constructor() { }
+    private boneappletea: string = "dummy text";
 
-  ngOnInit() {
-  }
+    constructor(
+        
+    ) { }
+
+    ngOnInit() { }
+
+    make(){
+        debugger
+    }
+
+    copy(){
+        debugger
+    }
 
 }

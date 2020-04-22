@@ -48,6 +48,7 @@ const COMPONENTS = [
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
+    MatGridListModule,
     MatCardModule,
     MatStepperModule,
     MatTabsModule,

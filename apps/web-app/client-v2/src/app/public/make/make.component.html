@@ -1,1 +1,14 @@
-<button mat-button>button</button>
+<mat-grid-list cols="1" rowHeight="6:1">
+  <mat-grid-tile>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label style="width:100%;">Leave a comment</mat-label>
+        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
+      <button (click)="make()" mat-flat-button color="primary">Primary</button>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button (click)="copy()" mat-flat-button color="primary">{{boneappletea}}</button>
+  </mat-grid-tile>
+</mat-grid-list>
