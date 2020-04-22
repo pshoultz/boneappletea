@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCheckboxModule} from '@angular/material';
@@ -34,7 +33,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
 const COMPONENTS = [
-    CommonModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -68,7 +66,7 @@ const COMPONENTS = [
 ]
 
 @NgModule({
-  declarations: [],
+  //declarations: [],
   imports: [COMPONENTS],
   exports: [COMPONENTS],
 })
