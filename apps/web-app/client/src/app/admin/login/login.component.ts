@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +10,9 @@ export class LoginComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.showModal();
     }
 
     showModal(){
-        //$('#login-modal').modal('show');
     }
 
 }
