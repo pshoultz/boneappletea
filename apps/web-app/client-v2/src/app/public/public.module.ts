@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MakeComponent } from './make/make.component';
 import { AddComponent } from './add/add.component';
 import { MaterialModule } from '../material/material.module';
-import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [MakeComponent, AddComponent],
   imports: [
     CommonModule,
     MaterialModule,
-    SharedModule,
+    FormsModule,
   ]
 })
 export class PublicModule { }

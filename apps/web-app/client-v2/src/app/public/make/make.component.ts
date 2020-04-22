@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../shared/api.service';
 
 @Component({
   selector: 'app-make',
@@ -7,16 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MakeComponent implements OnInit {
 
-    private boneappletea: string = "dummy text";
+    private boneappletea: any[] = [];
+    private data: any = {
+        value: ""
+    };
 
     constructor(
-        
+        private api: ApiService
     ) { }
 
     ngOnInit() { }
 
-    make(){
-        debugger
+    make(form: any){
+        console.log(form.value);
     }
 
     copy(){

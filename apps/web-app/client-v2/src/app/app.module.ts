@@ -15,12 +15,15 @@ import { PublicModule } from './public/public.module';
     AppComponent
   ],
   imports: [
+    //
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    //
     MaterialModule,
     AdminModule,
     PublicModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
