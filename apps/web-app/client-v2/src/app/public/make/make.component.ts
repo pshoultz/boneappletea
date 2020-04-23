@@ -8,10 +8,7 @@ import { ApiService } from '../../shared/api.service';
 })
 export class MakeComponent implements OnInit {
 
-    private boneappletea: any[] = [];
-    private data: any = {
-        value: ""
-    };
+    private data: any = {};
 
     constructor(
         private api: ApiService
@@ -20,7 +17,10 @@ export class MakeComponent implements OnInit {
     ngOnInit() { }
 
     make(form: any){
-        console.log(form.value);
+        this.api.MakeBat(form.value)
+            .subscribe(data => {
+                this.data = data;
+            });
     }
 
     copy(){

@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="6:1">
+<mat-grid-list cols="1" rowHeight="3:1">
   <mat-grid-tile>
     <form #f="ngForm" (ngSubmit)="make(f.value)" class="example-form">
       <mat-form-field class="example-full-width">
@@ -9,6 +9,6 @@
     </form>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button (click)="copy()" mat-flat-button color="primary">{{boneappletea}}</button>
+    <button (click)="copy()" mat-flat-button color="primary">{{data.boneappletea}}</button>
   </mat-grid-tile>
 </mat-grid-list>
