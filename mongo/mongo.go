@@ -7,12 +7,27 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
+	"os"
 )
+
+func getEnv(key, fallback string) string {
+    if value, ok := os.LookupEnv(key); ok {
+        return value
+    }
+    return fallback
+}
 
 func connect() *mongo.Client {
 	//NOTE:top is dev, bottom is live
 	//clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
-	clientOpts := options.Client().ApplyURI("mongodb://tji1498a.com:27017/?connect=direct")
+	mongodb_server := getEnv("MONGODB_SERVER", "mongo")
+	mongodb_port := getEnv("MONGODB_PORT", "27017")
+	mongodb_user := getEnv("MONGODB_USER", "root")
+	mongodb_pass := getEnv("MONGODB_PASS", "example")
+
+	mongodb_connect_uri := "mongodb://" + mongodb_user + ":" + mongodb_pass + "@" + mongodb_server + ":" + mongodb_port + "/?connect=direct"
+
+	clientOpts := options.Client().ApplyURI(mongodb_connect_uri)
 	client, err := mongo.Connect(context.TODO(), clientOpts)
 
 	if err != nil {
