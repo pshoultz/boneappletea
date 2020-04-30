@@ -6,6 +6,7 @@ import (
 	"github.com/boneappletea/mongo"
 	"math/rand"
 	"strings"
+	"time"
 )
 
 //NOTE: call db here and return our struct
@@ -15,6 +16,7 @@ func Generate(sentence string) string {
 	words = strings.Split(sentence, " ")
 
 	for index, word := range words {
+		//for _, word := range words {
 		//NOTE: per db call, we create a new variable to use
 		var bat models.Word
 
@@ -23,14 +25,14 @@ func Generate(sentence string) string {
 
 		//NOTE: if we get a hit out of the db, replace the word in the array
 		if bat.Root != "" {
-			fmt.Println(bat)
 			//NOTE: our boneappletea is an rng of all the values supplied to the db
 			length := len(bat.Values)
 			rng := rand.Intn(length)
-			//fmt.Println(length, rng)//NOTE: i was wondering if my rng was ranging right for the length of my array
+			rand.Seed(time.Now().UnixNano())
+			fmt.Println(length, rng) //NOTE: i was wondering if my rng was ranging right for the length of my array
 
 			//NOTE:replace old sentence with new word/words
-			words[index] = bat.Values[rng]
+			words[index] = bat.Values[rng].Replacement
 		}
 	}
 

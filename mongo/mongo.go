@@ -11,23 +11,25 @@ import (
 )
 
 func getEnv(key, fallback string) string {
-    if value, ok := os.LookupEnv(key); ok {
-        return value
-    }
-    return fallback
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
 }
 
 func connect() *mongo.Client {
 	//NOTE:top is dev, bottom is live
 	//clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
-	mongodb_server := getEnv("MONGODB_SERVER", "mongo")
-	mongodb_port := getEnv("MONGODB_PORT", "27017")
-	mongodb_user := getEnv("MONGODB_USER", "root")
-	mongodb_pass := getEnv("MONGODB_PASS", "example")
+	clientOpts := options.Client().ApplyURI("mongodb://tji1498a.com:27017/?connect=direct")
 
-	mongodb_connect_uri := "mongodb://" + mongodb_user + ":" + mongodb_pass + "@" + mongodb_server + ":" + mongodb_port + "/?connect=direct"
+	//mongodb_server := getEnv("MONGODB_SERVER", "mongo")
+	//mongodb_port := getEnv("MONGODB_PORT", "27017")
+	//mongodb_user := getEnv("MONGODB_USER", "root")
+	//mongodb_pass := getEnv("MONGODB_PASS", "example")
 
-	clientOpts := options.Client().ApplyURI(mongodb_connect_uri)
+	//mongodb_connect_uri := "mongodb://" + mongodb_user + ":" + mongodb_pass + "@" + mongodb_server + ":" + mongodb_port + "/?connect=direct"
+
+	//clientOpts := options.Client().ApplyURI(mongodb_connect_uri)
 	client, err := mongo.Connect(context.TODO(), clientOpts)
 
 	if err != nil {
@@ -40,7 +42,8 @@ func connect() *mongo.Client {
 //NOTE: get BATS that are flagged as false meaning that isn't been authenticated by us yet
 func GetBats() []models.Word {
 	var words []models.Word
-	filter := bson.M{"flag": false}
+	//filter := bson.M{"flag": false}
+	filter := bson.M{}
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
@@ -150,50 +153,50 @@ func DeleteBat(word models.Word) (int, string) {
 	found := checkForBat(word.Root)
 
 	if found {
-		// this is how we identify the document in the db we want to make a deletion on
-		filter := bson.M{"root": word.Root}
+		//// this is how we identify the document in the db we want to make a deletion on
+		//filter := bson.M{"root": word.Root}
 
-		client := connect()
-		collection := client.Database("boneappletea").Collection("words")
+		//client := connect()
+		//collection := client.Database("boneappletea").Collection("words")
 
-		batToDelete := word.Values[0]
+		//batToDelete := word.Values[0]
 
-		currentWord := GetWord(word.Root)
-		batExists := contains(currentWord.Values, batToDelete)
+		//currentWord := GetWord(word.Root)
+		//batExists := contains(currentWord.Values, batToDelete)
 
-		batsInDoc := len(currentWord.Values)
+		//batsInDoc := len(currentWord.Values)
 
-		if batsInDoc > 1 && batExists {
-			// only remove the item provided
-			update := bson.D{
-				{"$pull", bson.D{
-					{"values", batToDelete},
-				}},
-			}
+		//if batsInDoc > 1 && batExists {
+		//	// only remove the item provided
+		//	update := bson.D{
+		//		{"$pull", bson.D{
+		//			{"values", batToDelete},
+		//		}},
+		//	}
 
-			_, err := collection.UpdateOne(context.TODO(), filter, update)
-			client.Disconnect(context.TODO())
-			if err != nil {
-				log.Fatal(err)
-				return 500, "boneappletea delete failed"
-			} else {
-				return 200, "boneappletea deleted"
-			}
-		} else if batsInDoc == 1 && batExists {
-			// otherwise we delete the document
-			_, err := collection.DeleteOne(context.TODO(), filter)
-			client.Disconnect(context.TODO())
-			if err != nil {
-				log.Fatal(err)
-				return 500, "root delete failed"
-			} else {
-				return 200, "root deleted"
-			}
-		} else {
-			client.Disconnect(context.TODO())
-			return 500, "boneappletea not found"
-		}
-	} else {
-		return 500, "root not found"
+		//	_, err := collection.UpdateOne(context.TODO(), filter, update)
+		//	client.Disconnect(context.TODO())
+		//	if err != nil {
+		//		log.Fatal(err)
+		//		return 500, "boneappletea delete failed"
+		//	} else {
+		//		return 200, "boneappletea deleted"
+		//	}
+		//} else if batsInDoc == 1 && batExists {
+		//	// otherwise we delete the document
+		//	_, err := collection.DeleteOne(context.TODO(), filter)
+		//	client.Disconnect(context.TODO())
+		//	if err != nil {
+		//		log.Fatal(err)
+		//		return 500, "root delete failed"
+		//	} else {
+		//		return 200, "root deleted"
+		//	}
+		//} else {
+		//	client.Disconnect(context.TODO())
+		//	return 500, "boneappletea not found"
+		//}
 	}
+
+	return 500, "root not found"
 }

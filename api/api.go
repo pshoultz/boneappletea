@@ -5,9 +5,9 @@ import (
 	"github.com/boneappletea/models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"math/rand"
-	"strings"
-	"time"
+	//"math/rand"
+	//"strings"
+	//"time"
 )
 
 func Start() {
@@ -39,22 +39,22 @@ func Start() {
 
 	//NOTE: mongo call to db using mongo package pass values from gin.context
 	router.POST("/add", func(c *gin.Context) {
-		var word models.Word
-		var values []string
-		var flag bool
-		flag = false
-		values = append(values, strings.ToLower(c.GetHeader("value")))
+		//var word models.Word
+		//var values []string
+		//var flag bool
+		//flag = false
+		//values = append(values, strings.ToLower(c.GetHeader("value")))
 
-		word.Root = strings.ToLower(c.GetHeader("root"))
-		word.Values = values
-		word.Flag = flag
-		word.ID = makeID()
+		//word.Root = strings.ToLower(c.GetHeader("root"))
+		//word.Values = values
+		//word.Flag = flag
+		//word.ID = makeID()
 
-		code, message := boneappletea.Add(word)
+		//code, message := boneappletea.Add(word)
 
-		c.JSON(code, gin.H{
-			"message": message,
-		})
+		//c.JSON(code, gin.H{
+		//	"message": message,
+		//})
 
 	})
 
@@ -68,20 +68,20 @@ func Start() {
 
 	//NOTE:removes a word (document) if the last entry is deleted, otherwise just removes the boneappletea entry in the array
 	router.DELETE("/delete", func(c *gin.Context) {
-		var word models.Word
-		var values []string
-		var flag = false
-		values = append(values, strings.ToLower(c.GetHeader("value")))
+		//var word models.Word
+		//var values []string
+		//var flag = false
+		//values = append(values, strings.ToLower(c.GetHeader("value")))
 
-		word.Root = strings.ToLower(c.GetHeader("root"))
-		word.Values = values
-		word.Flag = flag
+		//word.Root = strings.ToLower(c.GetHeader("root"))
+		//word.Values = values
+		//word.Flag = flag
 
-		code, message := boneappletea.Delete(word)
+		//code, message := boneappletea.Delete(word)
 
-		c.JSON(code, gin.H{
-			"message": message,
-		})
+		//c.JSON(code, gin.H{
+		//	"message": message,
+		//})
 	})
 
 	//NOTE: we'll need a way to authorize words.  This will be hooked into our angular application where we login and get back words to authorize
@@ -103,16 +103,4 @@ func Start() {
 	})
 
 	router.Run(":8080")
-}
-
-func makeID() string {
-	rand.Seed(time.Now().UnixNano())
-	length := 16
-	bytes := make([]byte, length)
-	characters := []rune("abcdefghijklmnopqrstuvwxyz123456789")
-	for i := 0; i < length; i++ {
-		bytes[i] = byte(characters[rand.Intn(35)])
-	}
-
-	return string(bytes)
 }
