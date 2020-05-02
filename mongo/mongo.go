@@ -107,8 +107,8 @@ func CreateBat(word models.Word) (int, string) {
 		}
 	} else {
 		//NOTE: if word does exist, we need to update the document in the DB with a new value in the word in the values array
-		code, result := updateBat(word)
-		return code, result
+		//code, result := updateBat(word)
+		return 201, "createbat else statement"
 	}
 
 	return 200, "boneappletea created"

@@ -5,8 +5,8 @@ import (
 	"github.com/boneappletea/models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	//"math/rand"
 	//"strings"
+	//"math/rand"
 	//"time"
 )
 
@@ -39,22 +39,18 @@ func Start() {
 
 	//NOTE: mongo call to db using mongo package pass values from gin.context
 	router.POST("/add", func(c *gin.Context) {
-		//var word models.Word
-		//var values []string
-		//var flag bool
-		//flag = false
-		//values = append(values, strings.ToLower(c.GetHeader("value")))
+		//fmt.Println(c.GetHeader("value"))
+		//fmt.Println(c.GetHeader("root"))
 
-		//word.Root = strings.ToLower(c.GetHeader("root"))
-		//word.Values = values
-		//word.Flag = flag
-		//word.ID = makeID()
+		word := models.Word{Root: c.GetHeader("root")}
+		value := models.Value{Flag: false, Replacement: c.GetHeader("value")}
+		word.Values = append(word.Values, value)
 
-		//code, message := boneappletea.Add(word)
+		code, message := boneappletea.Add(word)
 
-		//c.JSON(code, gin.H{
-		//	"message": message,
-		//})
+		c.JSON(code, gin.H{
+			"message": message,
+		})
 
 	})
 
