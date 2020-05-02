@@ -13,21 +13,23 @@ export class ApiService {
     ) { }
 
     GetBats(){
-        return this.http.get(this.url);
+        return this.http.get(this.url + "get");
     }
 
     MakeBat(sentence: string){
-        const opts = {
-            headers: new HttpHeaders({
-                "sentence": sentence
-            })
-        }
-
-        //return this.http.get(this.url, opts);
         return this.http.get(this.url + "bat", {
             headers: new HttpHeaders({
                 "sentence": sentence
             })
         });
+    }
+
+    AcceptBats(root: string, replacement: string){
+        return this.http.post(this.url + "accept", {
+            headers: new HttpHeaders({
+                "root": root
+            })
+        });
+
     }
 }

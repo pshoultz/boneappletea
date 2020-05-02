@@ -1,11 +1,12 @@
 package api
 
 import (
+	"fmt"
 	"github.com/boneappletea/boneappletea"
 	"github.com/boneappletea/models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	//"strings"
+	"strings"
 	//"math/rand"
 	//"time"
 )
@@ -13,9 +14,10 @@ import (
 func Start() {
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:  []string{"*"},
-		AllowMethods:  []string{"PUT", "POST", "GET"},
-		AllowHeaders:  []string{"sentence"},
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"PUT", "POST", "GET"},
+		AllowHeaders: []string{"sentence", "root", "replacement"},
+		//AllowHeaders:  []string{"*"},
 		ExposeHeaders: []string{"Content-Length"},
 	}))
 
@@ -39,11 +41,8 @@ func Start() {
 
 	//NOTE: mongo call to db using mongo package pass values from gin.context
 	router.POST("/add", func(c *gin.Context) {
-		//fmt.Println(c.GetHeader("value"))
-		//fmt.Println(c.GetHeader("root"))
-
-		word := models.Word{Root: c.GetHeader("root")}
-		value := models.Value{Flag: false, Replacement: c.GetHeader("value")}
+		word := models.Word{Root: strings.ToLower(c.GetHeader("root"))}
+		value := models.Value{Flag: false, Replacement: strings.ToLower(c.GetHeader("value"))}
 		word.Values = append(word.Values, value)
 
 		code, message := boneappletea.Add(word)
@@ -56,10 +55,14 @@ func Start() {
 
 	//NOTE: after a word has been added, we still have to accept it via the web app
 	router.POST("/accept", func(c *gin.Context) {
-		/*NOTE:
-		each word in the DB has an ID, we use the query from the post to get it.
-		we use the ID here to find the document and then sent it flags to true.  Once true, the word is available for use in the mobile app
-		*/
+		word := c.GetHeader("root")
+		value := c.GetHeader("replacement")
+		fmt.Println(word, value)
+		fmt.Println("hit /accept")
+
+		c.JSON(200, gin.H{
+			"boneappleteas": "/accept",
+		})
 	})
 
 	//NOTE:removes a word (document) if the last entry is deleted, otherwise just removes the boneappletea entry in the array

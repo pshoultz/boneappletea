@@ -12,8 +12,8 @@ const routes: Routes = [
     {path:'', redirectTo:'', pathMatch:'full'},
     {path:'make', component:MakeComponent}, 
     {path:'add', component:AddComponent}, 
-    {path:'login', component:LoginComponent}, 
-    {path:'approve', component:ApproveComponent}, 
+    //{path:'admin', component:LoginComponent}, //NOTE: admins log in?
+    {path:'admin', component:ApproveComponent}, //NOTE: once approved login, admins can approve of bats?
 ];
 
 @NgModule({
