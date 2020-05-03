@@ -57,6 +57,7 @@ func Get() (int, []models.Word) {
 	return code, bats
 }
 
+//NOTE: this is how a user adds a word to the database
 func Add(bat models.Word) (int, string) {
 	code, message := mongo.CreateBat(bat)
 
@@ -65,6 +66,12 @@ func Add(bat models.Word) (int, string) {
 
 func Delete(word models.Word) (int, string) {
 	code, message := mongo.DeleteBat(word)
+
+	return code, message
+}
+
+func Accept(word models.Word) (int, string) {
+	code, message := mongo.AcceptBat(word)
 
 	return code, message
 }

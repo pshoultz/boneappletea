@@ -200,3 +200,27 @@ func DeleteBat(word models.Word) (int, string) {
 
 	return 500, "root not found"
 }
+
+func AcceptBat(word models.Word) (int, string) {
+	//log.Println("in acceptbat mongo.go")
+	//log.Println(word.Values[0])
+	filter := bson.M{"root": word.Root, "values.replacement": word.Values[0].Replacement}
+
+	update := bson.D{
+		{"$set", bson.D{
+			{"values.$.flag", true},
+		}},
+	}
+	client := connect()
+
+	collection := client.Database("boneappletea").Collection("words")
+
+	_, err := collection.UpdateOne(context.TODO(), filter, update)
+
+	if err != nil {
+		log.Fatal(err)
+		return 500, "boneappletea AcceptBat failed"
+	}
+
+	return 200, "AcceptBat"
+}

@@ -56,6 +56,7 @@ func Start() {
 
 	//NOTE: after a word has been added, we still have to accept it via the web app
 	router.POST("/accept", func(c *gin.Context) {
+		//NOTE: temporary struct to handle incoming json. I think this can be different though
 		type Data struct {
 			Root        string `json:"root"`
 			Replacement string `json:"replacement"`
@@ -66,6 +67,9 @@ func Start() {
 
 		if err != nil {
 			fmt.Println(err)
+			c.JSON(400, gin.H{
+				"boneapplteas": "accept failed",
+			})
 		} else {
 			word := models.Word{Root: strings.ToLower(data.Root)}
 			value := models.Value{Flag: false, Replacement: strings.ToLower(data.Replacement)}
@@ -73,6 +77,10 @@ func Start() {
 			//fmt.Println(word)
 
 			//NOTE: next this needs to hit the bat service and then mongo service to make it through the data pipe
+			code, message := boneappletea.Accept(word)
+			c.JSON(code, gin.H{
+				"message": message,
+			})
 		}
 
 		c.JSON(200, gin.H{
