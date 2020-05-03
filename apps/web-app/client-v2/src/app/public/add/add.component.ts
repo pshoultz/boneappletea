@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../shared/api.service';
 
 @Component({
   selector: 'app-add',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddComponent implements OnInit {
 
-  constructor() { }
+    private data: any = {};
 
-  ngOnInit() {
-  }
+    constructor(
+        private api: ApiService
+    ) { }
+
+    ngOnInit() {
+    }
+
+    add(form: any){
+        this.api.AddBat(form.root, form.replacement)
+        .subscribe((data: any) => {
+            console.log(data);
+        });
+    }
 
 }

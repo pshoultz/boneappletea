@@ -41,16 +41,39 @@ func Start() {
 
 	//NOTE: mongo call to db using mongo package pass values from gin.context
 	router.POST("/add", func(c *gin.Context) {
-		word := models.Word{Root: strings.ToLower(c.GetHeader("root"))}
-		value := models.Value{Flag: false, Replacement: strings.ToLower(c.GetHeader("value"))}
-		word.Values = append(word.Values, value)
-		fmt.Println(word)
+		type Data struct {
+			Root        string `json:"root"`
+			Replacement string `json:"replacement"`
+		}
 
-		code, message := boneappletea.Add(word)
+		var data Data
+		err := c.BindJSON(&data)
 
-		c.JSON(code, gin.H{
-			"message": message,
-		})
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(400, gin.H{
+				"boneapplteas": "add failed",
+			})
+		} else {
+			word := models.Word{Root: strings.ToLower(data.Root)}
+			value := models.Value{Flag: false, Replacement: strings.ToLower(data.Replacement)}
+			word.Values = append(word.Values, value)
+
+			code, message := boneappletea.Add(word)
+			c.JSON(code, gin.H{
+				"message": message,
+			})
+		}
+		//word := models.Word{Root: strings.ToLower(c.GetHeader("root"))}
+		//value := models.Value{Flag: false, Replacement: strings.ToLower(c.GetHeader("value"))}
+		//word.Values = append(word.Values, value)
+		//fmt.Println(word)
+
+		//code, message := boneappletea.Add(word)
+
+		//c.JSON(code, gin.H{
+		//	"message": message,
+		//})
 
 	})
 

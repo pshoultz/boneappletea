@@ -39,10 +39,11 @@ export class ApproveComponent implements OnInit {
         this.api.AcceptBats(root, replacement)
         .subscribe((data: any) => {
             console.log(data);
+            this.makeCards();//NOTE: to refresh the card collection? could be done differently though like just removing the card from dom
         });
     }
 
-    //NOTE: should delete entry from array in db
+    //NOTE: should delete entry from array in db?
     deny(root: string, replacement: string){
         //NOTE: call delete function 
     }

@@ -24,12 +24,24 @@ export class ApiService {
         });
     }
 
+    AddBat(root:string, replacement: string){
+        return this.http.post(this.url + "add",{
+            root: root,
+            replacement: replacement
+        },
+        {
+            //NOTE: should be json 
+            responseType: 'text'
+        });
+    }
+
     AcceptBats(root: string, replacement: string){
         return this.http.post(
             this.url + "accept", {
                 root: root,
                 replacement: replacement
-            }, {
+            },
+            {
                 //NOTE: should be json 
                 responseType: 'text'
             });
