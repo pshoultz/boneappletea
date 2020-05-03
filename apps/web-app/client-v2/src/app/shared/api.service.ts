@@ -25,9 +25,14 @@ export class ApiService {
     }
 
     AcceptBats(root: string, replacement: string){
-        return this.http.post(this.url + "accept",{
-            root: root,
-            replacement: replacement
-        }, {});
+        return this.http.post(
+            this.url + "accept", {
+                root: root,
+                replacement: replacement
+            }, {
+                headers: new HttpHeaders({
+                    "Content-Type": "application/json"
+                })
+            });
     }
 }

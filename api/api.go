@@ -1,7 +1,6 @@
 package api
 
 import (
-	"bytes"
 	"fmt"
 	"github.com/boneappletea/boneappletea"
 	"github.com/boneappletea/models"
@@ -57,9 +56,24 @@ func Start() {
 
 	//NOTE: after a word has been added, we still have to accept it via the web app
 	router.POST("/accept", func(c *gin.Context) {
-		buf := new(bytes.Buffer)
-		buf.ReadFrom(c.Request.Body)
-		fmt.Println(buf)
+		type Data struct {
+			Root        string `json:"root"`
+			Replacement string `json:"replacement"`
+		}
+
+		var data Data
+		err := c.BindJSON(&data)
+
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			word := models.Word{Root: strings.ToLower(data.Root)}
+			value := models.Value{Flag: false, Replacement: strings.ToLower(data.Replacement)}
+			word.Values = append(word.Values, value)
+			//fmt.Println(word)
+
+			//NOTE: next this needs to hit the bat service and then mongo service to make it through the data pipe
+		}
 
 		c.JSON(200, gin.H{
 			"boneappleteas": "/accept",
