@@ -35,7 +35,9 @@ export class ApproveComponent implements OnInit {
     }
 
     //NOTE: accept into db
-    accept(root: string, replacement: string){
+    accept(root: string, replacement: string, i: number){
+        let element = document.getElementById("card-" + i);
+        element.remove();
         this.api.AcceptBats(root, replacement)
         .subscribe((data: any) => {
             console.log(data);

@@ -1,7 +1,7 @@
 <div *ngIf="loaded">
   <div style="margin:20px;" *ngFor="let bat of boneappleteas">
-    <div *ngFor="let value of bat.Values">
-      <mat-card class="example-card" *ngIf="value.Flag === false">
+    <div *ngFor="let value of bat.Values; let i = index">
+      <mat-card id="card-{{i}}" class="example-card" *ngIf="value.Flag === false">
         <mat-card-header>
           <mat-card-title>{{bat.root}}</mat-card-title>
         </mat-card-header>
@@ -10,7 +10,7 @@
         </mat-card-content>
         <mat-card-actions>
           <button mat-flat-button color="warn">deny</button>
-          <button (click)="accept(bat.root, value.Replacement)"
+          <button (click)="accept(bat.root, value.Replacement, i)"
             mat-flat-button color="primary">
             accept
           </button>
