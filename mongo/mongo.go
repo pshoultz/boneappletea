@@ -42,7 +42,6 @@ func connect() *mongo.Client {
 //NOTE: get BATS that are flagged as false meaning that isn't been authenticated by us yet
 func GetBats() []models.Word {
 	var words []models.Word
-	//filter := bson.M{"flag": false}
 	filter := bson.M{}
 	client := connect()
 
@@ -80,12 +79,22 @@ func checkForBat(root string) bool {
 
 func GetWord(root string) models.Word {
 	var word models.Word
+	var newValues []models.Value
 	filter := bson.M{"root": root}
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
 	collection.FindOne(context.TODO(), filter).Decode(&word)
 	client.Disconnect(context.TODO())
+
+	for _, value := range word.Values {
+		if value.Flag == true {
+			newValues = append(newValues, value)
+		}
+	}
+
+	word.Values = newValues
+	log.Println(word)
 
 	return word
 }
@@ -202,8 +211,6 @@ func DeleteBat(word models.Word) (int, string) {
 }
 
 func AcceptBat(word models.Word) (int, string) {
-	//log.Println("in acceptbat mongo.go")
-	//log.Println(word.Values[0])
 	filter := bson.M{"root": word.Root, "values.replacement": word.Values[0].Replacement}
 
 	update := bson.D{
@@ -222,5 +229,5 @@ func AcceptBat(word models.Word) (int, string) {
 		return 500, "boneappletea AcceptBat failed"
 	}
 
-	return 200, "AcceptBat"
+	return 200, "success"
 }

@@ -74,18 +74,12 @@ func Start() {
 			word := models.Word{Root: strings.ToLower(data.Root)}
 			value := models.Value{Flag: false, Replacement: strings.ToLower(data.Replacement)}
 			word.Values = append(word.Values, value)
-			//fmt.Println(word)
 
-			//NOTE: next this needs to hit the bat service and then mongo service to make it through the data pipe
 			code, message := boneappletea.Accept(word)
 			c.JSON(code, gin.H{
 				"message": message,
 			})
 		}
-
-		c.JSON(200, gin.H{
-			"boneappleteas": "/accept",
-		})
 	})
 
 	//NOTE:removes a word (document) if the last entry is deleted, otherwise just removes the boneappletea entry in the array

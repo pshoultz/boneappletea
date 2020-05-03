@@ -1,22 +1,22 @@
-<p>approve works!</p>
-
 <div *ngIf="loaded">
   <div style="margin:20px;" *ngFor="let bat of boneappleteas">
-    <mat-card class="example-card" *ngFor="let value of bat.Values">
-      <mat-card-header>
-        <mat-card-title>{{bat.root}}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{value.Replacement}}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-flat-button color="warn">deny</button>
-        <button (click)="accept(bat.root, value.Replacement)"
-          mat-flat-button color="primary">
-          accept
-        </button>
-      </mat-card-actions>
-    </mat-card>
+    <div *ngFor="let value of bat.Values">
+      <mat-card class="example-card" *ngIf="value.Flag === false">
+        <mat-card-header>
+          <mat-card-title>{{bat.root}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{value.Replacement}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button color="warn">deny</button>
+          <button (click)="accept(bat.root, value.Replacement)"
+            mat-flat-button color="primary">
+            accept
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 </div>
 

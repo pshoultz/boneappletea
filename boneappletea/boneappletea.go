@@ -27,12 +27,15 @@ func Generate(sentence string) string {
 		if bat.Root != "" {
 			//NOTE: our boneappletea is an rng of all the values supplied to the db
 			length := len(bat.Values)
-			rng := rand.Intn(length)
-			rand.Seed(time.Now().UnixNano())
-			fmt.Println(length, rng) //NOTE: i was wondering if my rng was ranging right for the length of my array
+			//NOTE: if there are bats that have been approved
+			if length > 0 {
+				rng := rand.Intn(length)
+				rand.Seed(time.Now().UnixNano())
+				fmt.Println(length, rng) //NOTE: i was wondering if my rng was ranging right for the length of my array
 
-			//NOTE:replace old sentence with new word/words
-			words[index] = bat.Values[rng].Replacement
+				//NOTE:replace old sentence with new word/words
+				words[index] = bat.Values[rng].Replacement
+			}
 		}
 	}
 

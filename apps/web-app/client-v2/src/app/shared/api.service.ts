@@ -30,9 +30,8 @@ export class ApiService {
                 root: root,
                 replacement: replacement
             }, {
-                headers: new HttpHeaders({
-                    "Content-Type": "application/json"
-                })
+                //NOTE: should be json 
+                responseType: 'text'
             });
     }
 }
