@@ -9,7 +9,7 @@ type Word struct {
 
 type Value struct {
 	Flag        bool
-	Replacement string
+	Replacement string `json:"replacement, omitempty" bson:"root,omitempty"`
 }
 
 //NOTE: new version with a nested struct

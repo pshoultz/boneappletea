@@ -1,6 +1,7 @@
 package api
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/boneappletea/boneappletea"
 	"github.com/boneappletea/models"
@@ -16,8 +17,8 @@ func Start() {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"PUT", "POST", "GET"},
-		AllowHeaders: []string{"sentence", "root", "replacement"},
-		//AllowHeaders:  []string{"*"},
+		//AllowHeaders: []string{"sentence", "root", "replacement"},
+		AllowHeaders:  []string{"*"},
 		ExposeHeaders: []string{"Content-Length"},
 	}))
 
@@ -44,6 +45,7 @@ func Start() {
 		word := models.Word{Root: strings.ToLower(c.GetHeader("root"))}
 		value := models.Value{Flag: false, Replacement: strings.ToLower(c.GetHeader("value"))}
 		word.Values = append(word.Values, value)
+		fmt.Println(word)
 
 		code, message := boneappletea.Add(word)
 
@@ -55,10 +57,9 @@ func Start() {
 
 	//NOTE: after a word has been added, we still have to accept it via the web app
 	router.POST("/accept", func(c *gin.Context) {
-		word := c.GetHeader("root")
-		value := c.GetHeader("replacement")
-		fmt.Println(word, value)
-		fmt.Println("hit /accept")
+		buf := new(bytes.Buffer)
+		buf.ReadFrom(c.Request.Body)
+		fmt.Println(buf)
 
 		c.JSON(200, gin.H{
 			"boneappleteas": "/accept",
