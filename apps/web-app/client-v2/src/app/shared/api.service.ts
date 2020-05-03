@@ -27,7 +27,7 @@ export class ApiService {
     AcceptBats(root: string, replacement: string){
         return this.http.post(this.url + "accept",{
             root: root,
-            replacement: replacement,
+            replacement: replacement
         }, {});
     }
 }

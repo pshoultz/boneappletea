@@ -30,11 +30,13 @@ export class ApproveComponent implements OnInit {
         this.api.GetBats()
         .subscribe((data: any) => {
             this.boneappleteas = data.boneappleteas;
+            debugger
             this.loaded = true;
         });
     }
 
     accept(root: string, replacement: string){
+        debugger
         this.api.AcceptBats(root, replacement)
         .subscribe((data: any) => {
             console.log(data);
