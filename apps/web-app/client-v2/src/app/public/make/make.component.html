@@ -1,14 +1,8 @@
-<mat-grid-list cols="1" rowHeight="3:1">
-  <mat-grid-tile>
-    <form #f="ngForm" (ngSubmit)="make(f.value)" class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label style="width:100%;">sentence here</mat-label>
-        <input name="value" matInput placeholder="paul is nocturnal" [(ngModel)]="data.value">
-      </mat-form-field>
-      <button type="submit" mat-flat-button color="primary">Primary</button>
-    </form>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button (click)="copy()" mat-flat-button color="primary">{{data.boneappletea}}</button>
-  </mat-grid-tile>
-</mat-grid-list>
+<form #f="ngForm" (ngSubmit)="make(f.value)" class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label style="width:100%;">sentence here</mat-label>
+    <input name="value" matInput placeholder="paul is nocturnal" [(ngModel)]="data.value">
+  </mat-form-field>
+  <button type="submit" mat-flat-button color="primary">Primary</button>
+</form>
+<button (click)="copy()" mat-flat-button color="primary">{{data.boneappletea}}</button>

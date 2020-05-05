@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<mat-grid-list cols="6" rowHeight="100%">
+  <mat-grid-tile colspan="1" rowspan="1" style="background:red;"> </mat-grid-tile>
+  <mat-grid-tile colspan="4" rowspan="1" style="background:white;"> 
+    <router-outlet></router-outlet>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="1" style="background:red;"> </mat-grid-tile>
+</mat-grid-list>

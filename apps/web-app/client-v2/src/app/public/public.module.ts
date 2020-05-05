@@ -4,9 +4,10 @@ import { MakeComponent } from './make/make.component';
 import { AddComponent } from './add/add.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [MakeComponent, AddComponent],
+  declarations: [MakeComponent, AddComponent, HomeComponent],
   imports: [
     CommonModule,
     MaterialModule,
