@@ -1,0 +1,33 @@
+.link {
+  font-size:1.3rem;
+  cursor:pointer;
+  padding: 0 14px;
+  color:black;
+}
+
+.home {
+  cursor:pointer;
+  font-size:1.6rem;
+  padding: 0 14px;
+  color:black;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.bg{
+    background:white;
+    border-bottom:1px solid black;
+}
+
+.active{
+    font-weight:bold;
+    color:grey;
+    border-bottom:2px solid black;
+}
+
+.link:hover{
+    border:2px solid;
+    color:rgba(0,0,0,.5);
+}

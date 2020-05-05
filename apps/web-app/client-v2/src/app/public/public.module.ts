@@ -5,9 +5,10 @@ import { AddComponent } from './add/add.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { WordsComponent } from './words/words.component';
 
 @NgModule({
-  declarations: [MakeComponent, AddComponent, HomeComponent],
+  declarations: [MakeComponent, AddComponent, HomeComponent, WordsComponent],
   imports: [
     CommonModule,
     MaterialModule,
