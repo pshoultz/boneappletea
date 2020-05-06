@@ -6,9 +6,11 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { WordsComponent } from './words/words.component';
+import { ContactComponent } from './contact/contact.component';
+import { DonateComponent } from './donate/donate.component';
 
 @NgModule({
-  declarations: [MakeComponent, AddComponent, HomeComponent, WordsComponent],
+  declarations: [MakeComponent, AddComponent, HomeComponent, WordsComponent, ContactComponent, DonateComponent],
   imports: [
     CommonModule,
     MaterialModule,
