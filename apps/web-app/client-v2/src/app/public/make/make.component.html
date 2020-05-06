@@ -8,7 +8,7 @@
 <button (click)="copy()" mat-flat-button color="primary">{{data.boneappletea}}</button>-->
 
 <mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
-  <form #f="ngForm" (ngSubmit)="add(f.value)">
+  <form #f="ngForm" (ngSubmit)="make(f.value)">
     <mat-grid-tile colspan="4" rowspan="1">
       <mat-form-field class="item">
         <mat-label>senetence here</mat-label>
@@ -18,6 +18,10 @@
 
     <mat-grid-tile colspan="4" rowspan="1">
       <button type="submit" mat-flat-button class="item button">Make BoneAppleTea</button>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="4" rowspan="1">
+      <button (click)="copy()" mat-flat-button class="copy item">{{data.boneappletea}}</button>
     </mat-grid-tile>
   </form>
 </mat-grid-list>  
