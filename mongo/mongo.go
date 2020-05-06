@@ -19,8 +19,8 @@ func getEnv(key, fallback string) string {
 
 func connect() *mongo.Client {
 	//NOTE:top is dev, bottom is live
-	//clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
-	clientOpts := options.Client().ApplyURI("mongodb://tji1498a.com:27017/?connect=direct")
+	clientOpts := options.Client().ApplyURI("mongodb://127.0.0.1:27017/?connect=direct")
+	//clientOpts := options.Client().ApplyURI("mongodb://tji1498a.com:27017/?connect=direct")
 
 	//mongodb_server := getEnv("MONGODB_SERVER", "mongo")
 	//mongodb_port := getEnv("MONGODB_PORT", "27017")

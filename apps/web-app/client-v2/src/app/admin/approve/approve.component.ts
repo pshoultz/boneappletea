@@ -14,7 +14,7 @@ export class ApproveComponent implements OnInit {
         {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
     ];
 
-    public boneappleteas: any = {};
+    public boneappleteas: any = [];
     public loaded: boolean = false;
 
     constructor(

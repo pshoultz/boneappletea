@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
 
+import { MatSnackBar } from '@angular/material';
+
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -18,7 +20,8 @@ export class AddComponent implements OnInit {
     private data: any = {};
 
     constructor(
-        private api: ApiService
+        private api: ApiService,
+        private snackbar: MatSnackBar
     ) { }
 
     ngOnInit() {
@@ -28,6 +31,7 @@ export class AddComponent implements OnInit {
         this.api.AddBat(form.root, form.replacement)
         .subscribe((data: any) => {
             console.log(data);
+            this.snackbar.open("boneappletea added!", null, {duration: 1000});
         });
     }
 
