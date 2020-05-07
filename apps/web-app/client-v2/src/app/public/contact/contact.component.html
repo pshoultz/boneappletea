@@ -1,1 +1,22 @@
-<p>contact works!</p>
+<mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
+  <form #f="ngForm" (ngSubmit)="contact(f.value)">
+
+    <mat-grid-tile colspan="4" rowspan="1">
+      <mat-form-field class="item">
+        <mat-label>Email</mat-label>
+        <input name="address" matInput placeholder="example... nocturnal" [(ngModel)]="data.address">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="4" rowspan="1">
+      <mat-form-field class="item">
+        <mat-label>Message</mat-label>
+        <textarea matInput rows="3" cols="4"  name="message" placeholder="message here..." [(ngModel)]="data.message"></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="4" rowspan="1">
+      <button type="submit" mat-flat-button class="item button">Send</button>
+    </mat-grid-tile>
+  </form>
+</mat-grid-list>  

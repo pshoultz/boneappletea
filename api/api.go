@@ -2,13 +2,14 @@ package api
 
 import (
 	"fmt"
+	"strings"
+	//
 	"github.com/boneappletea/boneappletea"
+	"github.com/boneappletea/email"
 	"github.com/boneappletea/models"
+	//
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"strings"
-	//"math/rand"
-	//"time"
 )
 
 func Start() {
@@ -139,6 +140,29 @@ func Start() {
 		c.JSON(code, gin.H{
 			"boneappleteas": words,
 		})
+	})
+
+	router.POST("/email", func(c *gin.Context) {
+		type Data struct {
+			Address string `json:"address"`
+			Message string `json:"message"`
+		}
+
+		var data Data
+		err := c.BindJSON(&data)
+
+		if err != nil {
+			c.JSON(400, gin.H{
+				"boneappletea": "email failed",
+			})
+		}
+
+		email.Send(data.Address, data.Message)
+
+		c.JSON(200, gin.H{
+			"boneappletea": "email sent",
+		})
+
 	})
 
 	router.Run(":8080")

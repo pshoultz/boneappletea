@@ -46,4 +46,17 @@ export class ApiService {
                 responseType: 'text'
             });
     }
+
+    SendEmail(address: string, message: string){
+        debugger
+        return this.http.post(
+            this.url + "email", {
+                address: address,
+                message: message
+            },
+            {
+                //NOTE: should be json 
+                responseType: 'text'
+            });
+    }
 }

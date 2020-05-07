@@ -1,31 +1,5 @@
-<!--<div class="box">
-  <form #f="ngForm" (ngSubmit)="add(f.value)" class="example-form">
-    <div>
-      <mat-form-field class="example-full-width">
-        <mat-label style="width:100%;">Root word</mat-label>
-        <input name="root" matInput placeholder="nocturnal" [(ngModel)]="data.root">
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field class="example-full-width">
-        <mat-label style="width:100%;">Replacement word</mat-label>
-        <input name="replacement" matInput placeholder="knock eternal" [(ngModel)]="data.replacement">
-      </mat-form-field>
-    </div>
-
-    <div>
-      <button type="submit" mat-flat-button style="background:#00b894; color:white;">Add</button>
-    </div>
-  </form>
-</div>-->
-
 <mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
   <form #f="ngForm" (ngSubmit)="add(f.value)">
-    <!--<mat-grid-tile colspan="4" rowspan="1">
-      <mat-label style="width:100%;">Add BoneAppleTea</mat-label>
-    </mat-grid-tile>-->
-
     <mat-grid-tile colspan="4" rowspan="1">
       <mat-form-field class="item">
         <mat-label>Root word</mat-label>
