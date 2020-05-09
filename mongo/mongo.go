@@ -238,11 +238,7 @@ func Search(word string) models.Word {
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
-	err := collection.FindOne(context.TODO(), filter).Decode(&words)
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	collection.FindOne(context.TODO(), filter).Decode(&words)
 
 	client.Disconnect(context.TODO())
 

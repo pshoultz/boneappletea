@@ -1,15 +1,26 @@
 <mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
   <form #f="ngForm" (keyup.enter)="search(f.value)">
     <mat-grid-tile colspan="4" rowspan="1">
+      search database for words to use
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="4" rowspan="1">
+      <mat-icon>search</mat-icon>
       <mat-form-field class="item">
-        <input name="value" matInput placeholder="search" [(ngModel)]="data.value">
+        <input name="value" matInput placeholder="" [(ngModel)]="data.value">
       </mat-form-field>
     </mat-grid-tile>
 
     <mat-grid-tile colspan="4" rowspan="1">
-      <div>
-        for results of search
+      <div *ngFor="let value of boneappletea.Values">
+        <div *ngIf="done">
+          {{value.Replacement}}
+        </div>
+        <div *ngIf="!done">
+          No Data
+        </div>
       </div>
     </mat-grid-tile>
+
   </form>
 </mat-grid-list>  

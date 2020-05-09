@@ -84,13 +84,17 @@ func Search(word string) (int, models.Word) {
 	var values []models.Value
 	boneappletea = mongo.Search(word)
 
-	for _, value := range boneappletea.Values {
-		if value.Flag == true {
-			values = append(values, value)
+	if len(boneappletea.Values) > 0 {
+		for _, value := range boneappletea.Values {
+			if value.Flag == true {
+				values = append(values, value)
+			}
 		}
-	}
 
-	boneappletea.Values = values
+		boneappletea.Values = values
+	} else {
+		return 204, boneappletea
+	}
 
 	return 200, boneappletea
 }

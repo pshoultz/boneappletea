@@ -8,8 +8,9 @@ import { ApiService } from '../../shared/api.service';
 })
 export class WordsComponent implements OnInit {
 
-    public data: any = {};
-    public boneappleteas: any = [];
+    private data: any = {};
+    private boneappletea: any = {};
+    private done: boolean = false;
 
     constructor(
         private api: ApiService
@@ -21,7 +22,13 @@ export class WordsComponent implements OnInit {
     search(form:any){
         this.api.Search(form.value)
             .subscribe((data: any) => {
-                debugger
+                if(data === null){
+                    this.done = false;
+                }else{
+                    this.boneappletea = data.boneappletea;
+                    console.log(this.boneappletea);
+                    this.done = true;
+                }
             });
     }
 
