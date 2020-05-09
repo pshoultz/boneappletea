@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../shared/api.service';
 
 @Component({
   selector: 'app-words',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WordsComponent implements OnInit {
 
-  constructor() { }
+    public data: any = {};
+    public boneappleteas: any = [];
 
-  ngOnInit() {
-  }
+    constructor(
+        private api: ApiService
+    ) { }
+
+    ngOnInit() {
+    }
+
+    search(form:any){
+        this.api.Search(form.value)
+            .subscribe((data: any) => {
+                debugger
+            });
+    }
 
 }

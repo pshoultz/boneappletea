@@ -157,12 +157,27 @@ func Start() {
 			})
 		}
 
+		//NOTE: this doesn't handle errors and stuff right, it just works as.  need to fix
 		email.Send(data.Address, data.Message)
 
 		c.JSON(200, gin.H{
 			"boneappletea": "email sent",
 		})
 
+	})
+
+	//NOTE: return words and boneappleteas to the user that have been approved
+	router.GET("/search", func(c *gin.Context) {
+		var value = c.Query("value")
+		var word models.Word
+		//var values []models.Value
+		var code int
+
+		code, word = boneappletea.Search(value)
+
+		c.JSON(code, gin.H{
+			"boneappletea": word,
+		})
 	})
 
 	router.Run(":8080")

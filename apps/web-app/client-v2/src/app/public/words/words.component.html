@@ -1,1 +1,15 @@
-<p>words works!</p>
+<mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
+  <form #f="ngForm" (keyup.enter)="search(f.value)">
+    <mat-grid-tile colspan="4" rowspan="1">
+      <mat-form-field class="item">
+        <input name="value" matInput placeholder="search" [(ngModel)]="data.value">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="4" rowspan="1">
+      <div>
+        for results of search
+      </div>
+    </mat-grid-tile>
+  </form>
+</mat-grid-list>  

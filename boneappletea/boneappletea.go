@@ -78,3 +78,19 @@ func Accept(word models.Word) (int, string) {
 
 	return code, message
 }
+
+func Search(word string) (int, models.Word) {
+	var boneappletea models.Word
+	var values []models.Value
+	boneappletea = mongo.Search(word)
+
+	for _, value := range boneappletea.Values {
+		if value.Flag == true {
+			values = append(values, value)
+		}
+	}
+
+	boneappletea.Values = values
+
+	return 200, boneappletea
+}

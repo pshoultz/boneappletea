@@ -1,25 +1,3 @@
-<!--<div *ngIf="loaded">
-  <div style="margin:20px;" *ngFor="let bat of boneappleteas">
-    <div *ngFor="let value of bat.Values; let i = index">
-      <mat-card id="card-{{i}}" class="example-card" *ngIf="value.Flag === false">
-        <mat-card-header>
-          <mat-card-title>{{bat.root}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{value.Replacement}}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-flat-button color="warn">deny</button>
-          <button (click)="accept(bat.root, value.Replacement, i)"
-            mat-flat-button color="primary">
-            accept
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
-</div>-->
-
 <mat-grid-list cols="4" rowHeight="200px" style="display:contents;">
   <mat-grid-tile colspan="4" rowspan="1" *ngFor="let bat of boneappleteas">
     <div *ngFor="let value of bat.Values; let i = index">
@@ -45,13 +23,3 @@
     </div>
   </mat-grid-tile>
 </mat-grid-list>
-
-<!--<mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
-  <mat-grid-tile
-      *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color">
-    {{tile.text}}
-  </mat-grid-tile>
-</mat-grid-list>-->

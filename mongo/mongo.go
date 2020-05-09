@@ -231,3 +231,21 @@ func AcceptBat(word models.Word) (int, string) {
 
 	return 200, "success"
 }
+
+func Search(word string) models.Word {
+	var words models.Word
+	filter := bson.M{"root": word}
+	client := connect()
+
+	collection := client.Database("boneappletea").Collection("words")
+	err := collection.FindOne(context.TODO(), filter).Decode(&words)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	client.Disconnect(context.TODO())
+
+	return words
+
+}

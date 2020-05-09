@@ -59,4 +59,8 @@ export class ApiService {
                 responseType: 'text'
             });
     }
+
+    Search(word: string){
+        return this.http.get(this.url + "search?value=" + word);
+    }
 }
