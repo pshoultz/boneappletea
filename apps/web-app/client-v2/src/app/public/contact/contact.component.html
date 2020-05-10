@@ -1,5 +1,12 @@
 <mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
+  <div id="paul">
   <form #f="ngForm" (ngSubmit)="contact(f.value)">
+
+    <mat-grid-tile colspan="4" rowspan="1">
+      <div class="contact">
+        Contact Us
+      </div>
+    </mat-grid-tile>
 
     <mat-grid-tile colspan="4" rowspan="1">
       <mat-form-field class="item">
@@ -19,4 +26,5 @@
       <button type="submit" mat-flat-button class="item button">Send</button>
     </mat-grid-tile>
   </form>
+  </div>
 </mat-grid-list>  

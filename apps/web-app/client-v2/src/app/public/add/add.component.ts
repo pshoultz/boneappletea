@@ -30,7 +30,6 @@ export class AddComponent implements OnInit {
     add(form: any){
         this.api.AddBat(form.root, form.replacement)
         .subscribe((data: any) => {
-            console.log(data);
             this.snackbar.open("boneappletea added!", null, {duration: 1000});
         });
     }

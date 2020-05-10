@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
 
+import { MatSnackBar } from '@angular/material';
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -11,7 +13,8 @@ export class ContactComponent implements OnInit {
     private data: any = {};
 
     constructor(
-        private api: ApiService
+        private api: ApiService,
+        private snackbar: MatSnackBar
     ) { }
 
     ngOnInit() {
@@ -19,14 +22,18 @@ export class ContactComponent implements OnInit {
 
     contact(form: any){
 
-        debugger
         var address: string = form.address;
         var message: string = form.message;
+        debugger
 
-        this.api.SendEmail(address, message)
-            .subscribe((data: any) => {
-                console.log(data);
-            });
+        if(address !== undefined && message !== undefined){
+            this.api.SendEmail(address, message)
+                .subscribe((data: any) => {
+                    console.log(data);
+                });
+        }else{
+            this.snackbar.open("form is incomplete", null, {duration: 2000});
+        }
     }
 
 }
