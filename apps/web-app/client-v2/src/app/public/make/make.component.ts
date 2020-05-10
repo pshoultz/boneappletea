@@ -27,7 +27,7 @@ export class MakeComponent implements OnInit {
     }
 
     copy(){
-        var input = document.getElementById("bat");
+        var input = document.getElementById("bat") as HTMLInputElement;
         input.select();
         var success = document.execCommand('copy');
         if(success) {
