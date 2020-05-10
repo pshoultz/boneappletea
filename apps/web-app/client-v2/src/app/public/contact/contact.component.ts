@@ -32,7 +32,7 @@ export class ContactComponent implements OnInit {
                     console.log(data);
                 });
         }else{
-            this.snackbar.open("form is incomplete", null, {duration: 2000});
+            this.snackbar.open("FORM IS INCOMPLETE", null, {duration: 2000});
         }
     }
 
