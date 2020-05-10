@@ -26,7 +26,6 @@ export class WordsComponent implements OnInit {
                     this.done = false;
                 }else{
                     this.boneappletea = data.boneappletea;
-                    console.log(this.boneappletea);
                     this.done = true;
                 }
             });

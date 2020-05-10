@@ -168,7 +168,7 @@ func Start() {
 
 	//NOTE: return words and boneappleteas to the user that have been approved
 	router.GET("/search", func(c *gin.Context) {
-		var value = c.Query("value")
+		var value = strings.ToLower(c.Query("value"))
 		var word models.Word
 		//var values []models.Value
 		var code int

@@ -7,18 +7,16 @@
     <mat-grid-tile colspan="4" rowspan="1">
       <mat-icon>search</mat-icon>
       <mat-form-field class="item">
-        <input name="value" matInput placeholder="" [(ngModel)]="data.value">
+        <input name="value" class="input" matInput placeholder="" [(ngModel)]="data.value">
       </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="4" rowspan="1">
-      <div *ngFor="let value of boneappletea.Values">
-        <div *ngIf="done">
-          {{value.Replacement}}
-        </div>
-        <div *ngIf="!done">
-          No Data
-        </div>
+    <mat-grid-tile colspan="4" rowspan="1" *ngFor="let value of boneappletea.Values">
+      <div *ngIf="done">
+        {{value.Replacement}}
+      </div>
+      <div *ngIf="!done">
+        No Data
       </div>
     </mat-grid-tile>
 
