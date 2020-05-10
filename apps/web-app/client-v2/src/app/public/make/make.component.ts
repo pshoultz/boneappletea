@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
 
+import { MatSnackBar } from '@angular/material';
+
 @Component({
   selector: 'app-make',
   templateUrl: './make.component.html',
@@ -11,7 +13,8 @@ export class MakeComponent implements OnInit {
     private data: any = {};
 
     constructor(
-        private api: ApiService
+        private api: ApiService,
+        private snackbar: MatSnackBar,
     ) { }
 
     ngOnInit() { }
@@ -24,7 +27,20 @@ export class MakeComponent implements OnInit {
     }
 
     copy(){
-        debugger
+        var input = document.getElementById("bat");
+        input.select();
+        var success = document.execCommand('copy');
+        if(success) {
+            this.snackbar.open("Copied", null, {
+                duration: 2000,
+                panelClass: ['success']
+            });
+        }else{
+            this.snackbar.open("Copied", null, {
+                duration: 2000,
+                panelClass: ['error']
+            });
+        }
     }
 
 }

@@ -16,3 +16,15 @@
     font-size:2rem;
     text-align:center;
 }
+
+::ng-deep .error{
+    background:red;
+    color:white;
+    text-align:center;
+}
+
+::ng-deep .success{
+    background:green;
+    color:white;
+    text-align:center;
+}

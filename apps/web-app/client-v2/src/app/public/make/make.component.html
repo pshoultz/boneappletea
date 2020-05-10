@@ -9,12 +9,12 @@
       </div>
       <mat-form-field class="item">
         <mat-label>senetence here</mat-label>
-        <input name="value" class="input" matInput placeholder="i am nocturnal" [(ngModel)]="data.value">
+        <input id="bat" name="value" class="input" matInput placeholder="i am nocturnal" [(ngModel)]="data.value">
       </mat-form-field>
     </mat-grid-tile>
-
-    <mat-grid-tile colspan="4" rowspan="1">
-      <button (click)="copy()" mat-flat-button class="copy item">{{data.boneappletea}}</button>
-    </mat-grid-tile>
   </form>
+
+  <mat-grid-tile colspan="4" rowspan="1">
+    <button (click)="copy(data.boneappletea)" mat-flat-button class="copy item">{{data.boneappletea}}</button>
+  </mat-grid-tile>
 </mat-grid-list>  

@@ -26,6 +26,7 @@ export class AddComponent implements OnInit {
             .subscribe((data: any) => {
                 this.snackbar.open("boneappletea added!", null, {
                     duration: 2000,
+                    panelClass: ['success']
                 });
             });
         }else{
