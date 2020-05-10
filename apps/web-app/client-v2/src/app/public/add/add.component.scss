@@ -18,3 +18,15 @@
     text-align:center;
     font-size:3rem;
 }
+
+::ng-deep .error{
+    background:red;
+    color:white;
+    text-align:center;
+}
+
+::ng-deep .success{
+    background:green;
+    color:white;
+    text-align:center;
+}
