@@ -1,30 +1,66 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class ApiService {
 
+    private url: string = "http://127.0.0.1:8080/";
+
     constructor(
-        private http: HttpClient
+        public http: HttpClient
     ) { }
 
-    GetBats() {
-        return this.http.get("http://127.0.0.1:8080/get");
+    GetBats(){
+        return this.http.get(this.url + "get");
     }
 
-    //NOTE: we should have ids on each BAT so we can find them in the DB faster
-    AcceptBat(id: string){
-        //NOTE: hit router for accept then attach a header of 'id' to it.
-        //once in the API, pull the id off the header
-        //search for the document in the DB with this id
-        //set the flag to true
+    MakeBat(sentence: string){
+        return this.http.get(this.url + "bat", {
+            headers: new HttpHeaders({
+                "sentence": sentence
+            })
+        });
     }
 
-    //NOTE: we should have ids on each BAT so we can find them in the DB faster
-    DenyBat(id: string){
-        //NOTE: this might take a little more thinking but I think the delete function should work here
+    AddBat(root:string, replacement: string){
+        return this.http.post(this.url + "add",{
+            root: root,
+            replacement: replacement
+        },
+        {
+            //NOTE: should be json 
+            responseType: 'text'
+        });
+    }
+
+    AcceptBats(root: string, replacement: string){
+        return this.http.post(
+            this.url + "accept", {
+                root: root,
+                replacement: replacement
+            },
+            {
+                //NOTE: should be json 
+                responseType: 'text'
+            });
+    }
+
+    SendEmail(address: string, message: string){
+        debugger
+        return this.http.post(
+            this.url + "email", {
+                address: address,
+                message: message
+            },
+            {
+                //NOTE: should be json 
+                responseType: 'text'
+            });
+    }
+
+    Search(word: string){
+        return this.http.get(this.url + "search?value=" + word);
     }
 }

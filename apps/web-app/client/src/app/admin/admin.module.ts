@@ -1,22 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { BoneappleteaComponent } from './boneappletea/boneappletea.component';
-import { BoneappleteaCardComponent } from './boneappletea-card/boneappletea-card.component';
 import { LoginComponent } from './login/login.component';
+import { ApproveComponent } from './approve/approve.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
-  declarations: [
-      BoneappleteaComponent,
-      BoneappleteaCardComponent,
-      LoginComponent
-  ],
+  declarations: [LoginComponent, ApproveComponent],
   imports: [
     CommonModule,
-  ],
-  exports:[
-      BoneappleteaComponent,
-      BoneappleteaCardComponent
-  ],
+    MaterialModule,
+  ]
 })
 export class AdminModule { }
