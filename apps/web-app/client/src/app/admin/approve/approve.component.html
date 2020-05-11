@@ -1,25 +1,23 @@
-<mat-grid-list cols="4" rowHeight="200px" style="display:contents;">
-  <mat-grid-tile colspan="4" rowspan="1" *ngFor="let bat of boneappleteas">
-    <div *ngFor="let value of bat.Values; let i = index">
-      <mat-card id="card-{{i}}" class="card" *ngIf="value.Flag === false">
-        <mat-card-header>
-          <mat-card-title class="root">
-            {{bat.root | uppercase}}
-          </mat-card-title>
-        </mat-card-header>
+<div *ngFor="let bat of boneappleteas; let i = index">
+  <div *ngFor="let value of bat.Values; let i = index">
+    <mat-card id="card-{{i}}" class="card" *ngIf="!value.Flag">
+      <mat-card-header>
+        <mat-card-title class="root">
+          {{bat.root | uppercase}}
+        </mat-card-title>
+      </mat-card-header>
 
-        <mat-card-content class="replacement">
-          <p>{{value.Replacement}}</p>
-        </mat-card-content>
+      <mat-card-content class="replacement">
+        <p>{{value.Replacement}}</p>
+      </mat-card-content>
 
-        <mat-card-actions>
-          <button mat-flat-button color="warn"> deny </button>
-          <button (click)="accept(bat.root, value.Replacement, i)"
-            mat-flat-button color="primary" style="float:right;">
-            accept
-          </button>
-        </mat-card-actions>
+      <mat-card-actions>
+        <button mat-flat-button color="warn"> deny </button>
+        <button (click)="accept(bat.root, value.Replacement, i)"
+          mat-flat-button color="primary" style="float:right;">
+          accept
+        </button>
+      </mat-card-actions>
     </mat-card>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>

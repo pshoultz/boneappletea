@@ -60,17 +60,22 @@ func GetBats() []models.Word {
 }
 
 //NOTE: this is a private function.  Its job is to search the db for words that exist and return t/f
-func checkForBat(root string) bool {
+func checkForBat(root string, replacement string) bool {
+	log.Println("inside checkforbat()")
 	var word models.Word
-	filter := bson.M{"root": root}
+	//filter := bson.M{"root": root, "values": "{$in:" + replacement + "}"}
+	filter := bson.M{"root": root, "values.replacement": replacement}
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
 	collection.FindOne(context.TODO(), filter).Decode(&word)
+	log.Println(word)
 
 	client.Disconnect(context.TODO())
 
 	if word.Root == "" {
+		log.Println("inside checkforbat() if statement")
+		log.Println(word)
 		return false
 	}
 
@@ -100,10 +105,14 @@ func GetWord(root string) models.Word {
 }
 
 func CreateBat(word models.Word) (int, string) {
-	found := checkForBat(word.Root)
+	found := checkForBat(word.Root, word.Values[0].Replacement)
+	log.Println("found is:", found)
+	var code int
+	var result string
 
 	//NOTE:: if word doesn't exist, we add it to the db
-	if !found {
+	if found == false {
+		log.Println("inside if")
 		client := connect()
 		collection := client.Database("boneappletea").Collection("words")
 
@@ -114,16 +123,21 @@ func CreateBat(word models.Word) (int, string) {
 			log.Fatal(err)
 			return 500, "boneappletea create failed"
 		}
+
+		code = 200
+		result = "create ok"
 	} else {
-		//NOTE: if word does exist, we need to update the document in the DB with a new value in the word in the values array
-		code, result := updateBat(word)
-		return code, result
+		log.Println("inside if")
+		code, result = updateBat(word)
 	}
 
-	return 200, "boneappletea created"
+	//NOTE: if word does exist, we need to update the document in the DB with a new value in the word in the values array
+	return code, result
+
 }
 
 func updateBat(word models.Word) (int, string) {
+	log.Println("updateBat()")
 	//NOTE: this is how we identify the document in the db we want to update
 	filter := bson.M{"root": word.Root}
 
@@ -159,55 +173,55 @@ func contains(arr []string, str string) bool {
 }
 
 func DeleteBat(word models.Word) (int, string) {
-	found := checkForBat(word.Root)
+	//found := checkForBat(word.Root, word.Values[0])
 
-	if found {
-		//// this is how we identify the document in the db we want to make a deletion on
-		//filter := bson.M{"root": word.Root}
+	//if found {
+	//	//// this is how we identify the document in the db we want to make a deletion on
+	//	//filter := bson.M{"root": word.Root}
 
-		//client := connect()
-		//collection := client.Database("boneappletea").Collection("words")
+	//	//client := connect()
+	//	//collection := client.Database("boneappletea").Collection("words")
 
-		//batToDelete := word.Values[0]
+	//	//batToDelete := word.Values[0]
 
-		//currentWord := GetWord(word.Root)
-		//batExists := contains(currentWord.Values, batToDelete)
+	//	//currentWord := GetWord(word.Root)
+	//	//batExists := contains(currentWord.Values, batToDelete)
 
-		//batsInDoc := len(currentWord.Values)
+	//	//batsInDoc := len(currentWord.Values)
 
-		//if batsInDoc > 1 && batExists {
-		//	// only remove the item provided
-		//	update := bson.D{
-		//		{"$pull", bson.D{
-		//			{"values", batToDelete},
-		//		}},
-		//	}
+	//	//if batsInDoc > 1 && batExists {
+	//	//	// only remove the item provided
+	//	//	update := bson.D{
+	//	//		{"$pull", bson.D{
+	//	//			{"values", batToDelete},
+	//	//		}},
+	//	//	}
 
-		//	_, err := collection.UpdateOne(context.TODO(), filter, update)
-		//	client.Disconnect(context.TODO())
-		//	if err != nil {
-		//		log.Fatal(err)
-		//		return 500, "boneappletea delete failed"
-		//	} else {
-		//		return 200, "boneappletea deleted"
-		//	}
-		//} else if batsInDoc == 1 && batExists {
-		//	// otherwise we delete the document
-		//	_, err := collection.DeleteOne(context.TODO(), filter)
-		//	client.Disconnect(context.TODO())
-		//	if err != nil {
-		//		log.Fatal(err)
-		//		return 500, "root delete failed"
-		//	} else {
-		//		return 200, "root deleted"
-		//	}
-		//} else {
-		//	client.Disconnect(context.TODO())
-		//	return 500, "boneappletea not found"
-		//}
-	}
+	//	//	_, err := collection.UpdateOne(context.TODO(), filter, update)
+	//	//	client.Disconnect(context.TODO())
+	//	//	if err != nil {
+	//	//		log.Fatal(err)
+	//	//		return 500, "boneappletea delete failed"
+	//	//	} else {
+	//	//		return 200, "boneappletea deleted"
+	//	//	}
+	//	//} else if batsInDoc == 1 && batExists {
+	//	//	// otherwise we delete the document
+	//	//	_, err := collection.DeleteOne(context.TODO(), filter)
+	//	//	client.Disconnect(context.TODO())
+	//	//	if err != nil {
+	//	//		log.Fatal(err)
+	//	//		return 500, "root delete failed"
+	//	//	} else {
+	//	//		return 200, "root deleted"
+	//	//	}
+	//	//} else {
+	//	//	client.Disconnect(context.TODO())
+	//	//	return 500, "boneappletea not found"
+	//	//}
+	//}
 
-	return 500, "root not found"
+	return 200, "delete function not written yet"
 }
 
 func AcceptBat(word models.Word) (int, string) {
