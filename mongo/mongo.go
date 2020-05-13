@@ -60,26 +60,36 @@ func GetBats() []models.Word {
 }
 
 //NOTE: this is a private function.  Its job is to search the db for words that exist and return t/f
-func checkForBat(root string, replacement string) bool {
-	log.Println("inside checkforbat()")
+func checkForBat(root string, replacement string) string {
 	var word models.Word
-	//filter := bson.M{"root": root, "values": "{$in:" + replacement + "}"}
+	var value string
 	filter := bson.M{"root": root, "values.replacement": replacement}
+	//filter := bson.M{"root": root}
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
 	collection.FindOne(context.TODO(), filter).Decode(&word)
-	log.Println(word)
 
 	client.Disconnect(context.TODO())
+	log.Println("checkforbat(): ", word, replacement)
 
-	if word.Root == "" {
-		log.Println("inside checkforbat() if statement")
-		log.Println(word)
-		return false
+	//for _, value := range word.Values {
+	//	if value.Replacement == replacement {
+	//		return "update"
+	//	} else if value.Replacement {
+	//	}
+	//}
+
+	if len(word.Values) != 0 {
+		if word.Values[0].Replacement == replacement {
+			value = "duplicate"
+		}
+		value = "update"
+	} else if len(word.Values) == 0 {
+		value = "new"
 	}
 
-	return true
+	return value
 }
 
 func GetWord(root string) models.Word {
@@ -99,7 +109,6 @@ func GetWord(root string) models.Word {
 	}
 
 	word.Values = newValues
-	log.Println(word)
 
 	return word
 }
@@ -111,8 +120,7 @@ func CreateBat(word models.Word) (int, string) {
 	var result string
 
 	//NOTE:: if word doesn't exist, we add it to the db
-	if found == false {
-		log.Println("inside if")
+	if found == "new" {
 		client := connect()
 		collection := client.Database("boneappletea").Collection("words")
 
@@ -126,9 +134,12 @@ func CreateBat(word models.Word) (int, string) {
 
 		code = 200
 		result = "create ok"
-	} else {
-		log.Println("inside if")
+	} else if found == "update" {
 		code, result = updateBat(word)
+	} else {
+		//found == "duplicate"
+		code = 204
+		result = "duplicate"
 	}
 
 	//NOTE: if word does exist, we need to update the document in the DB with a new value in the word in the values array
@@ -137,7 +148,6 @@ func CreateBat(word models.Word) (int, string) {
 }
 
 func updateBat(word models.Word) (int, string) {
-	log.Println("updateBat()")
 	//NOTE: this is how we identify the document in the db we want to update
 	filter := bson.M{"root": word.Root}
 
