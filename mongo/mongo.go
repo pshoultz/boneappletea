@@ -62,7 +62,7 @@ func GetBats() []models.Word {
 //NOTE: this is a private function.  Its job is to search the db for words that exist and return t/f
 func checkForBat(root string, replacement string) string {
 	var word models.Word
-	var value string
+	var status string
 	filter := bson.M{"root": root, "values.replacement": replacement}
 	//filter := bson.M{"root": root}
 	client := connect()
@@ -75,21 +75,22 @@ func checkForBat(root string, replacement string) string {
 
 	//for _, value := range word.Values {
 	//	if value.Replacement == replacement {
-	//		return "update"
-	//	} else if value.Replacement {
+	//		status = "duplicate"
+	//	} else if status != "duplicate" && value.Replacement != replacement {
+	//		st
 	//	}
 	//}
 
 	if len(word.Values) != 0 {
 		if word.Values[0].Replacement == replacement {
-			value = "duplicate"
+			status = "duplicate"
 		}
-		value = "update"
+		status = "update"
 	} else if len(word.Values) == 0 {
-		value = "new"
+		status = "new"
 	}
 
-	return value
+	return status
 }
 
 func GetWord(root string) models.Word {
