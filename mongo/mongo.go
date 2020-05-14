@@ -63,31 +63,33 @@ func GetBats() []models.Word {
 func checkForBat(root string, replacement string) string {
 	var word models.Word
 	var status string
-	filter := bson.M{"root": root, "values.replacement": replacement}
-	//filter := bson.M{"root": root}
+	var duplicate bool
+	//filter := bson.M{"root": root, "values.replacement": replacement}
+	filter := bson.M{"root": root}
 	client := connect()
 
 	collection := client.Database("boneappletea").Collection("words")
-	collection.FindOne(context.TODO(), filter).Decode(&word)
-
+	err := collection.FindOne(context.TODO(), filter).Decode(&word)
 	client.Disconnect(context.TODO())
-	log.Println("checkforbat(): ", word, replacement)
 
-	//for _, value := range word.Values {
-	//	if value.Replacement == replacement {
-	//		status = "duplicate"
-	//	} else if status != "duplicate" && value.Replacement != replacement {
-	//		st
-	//	}
-	//}
-
-	if len(word.Values) != 0 {
-		if word.Values[0].Replacement == replacement {
-			status = "duplicate"
-		}
-		status = "update"
-	} else if len(word.Values) == 0 {
+	//NOTE: err is triggered when no words are found in the db
+	if err != nil {
 		status = "new"
+	} else {
+		for _, value := range word.Values {
+			if value.Replacement == replacement {
+				duplicate = true
+			}
+			if !duplicate && value.Replacement != replacement {
+				duplicate = false
+			}
+		}
+	}
+
+	if duplicate {
+		status = "duplicate"
+	} else {
+		status = "update"
 	}
 
 	return status
