@@ -27,20 +27,28 @@ export class MakeComponent implements OnInit {
     }
 
     copy(){
-        //var input: HTMLInputElement = document.getElementById("bat") as HTMLInputElement;
-        //input.select();
-        //var success = document.execCommand('copy');
-        //if(success) {
-        //    this.snackbar.open("Copied", null, {
-        //        duration: 2000,
-        //        panelClass: ['success']
-        //    });
-        //}else{
-        //    this.snackbar.open("Copied", null, {
-        //        duration: 2000,
-        //        panelClass: ['error']
-        //    });
-        //}
+        var temp = document.createElement("textarea") as HTMLTextAreaElement;
+        debugger
+        temp.value = this.data.boneappletea;
+        document.body.appendChild(temp);
+        temp.focus();
+        temp.select();
+
+        var success = document.execCommand('copy');
+
+        if(success) {
+            this.snackbar.open("Copied", null, {
+                duration: 2000,
+                panelClass: ['success']
+            });
+        }else{
+            this.snackbar.open("oh no, error", null, {
+                duration: 2000,
+                panelClass: ['error']
+            });
+        }
+
+        document.body.removeChild(temp);
     }
 
 }
