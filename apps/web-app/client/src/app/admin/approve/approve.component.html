@@ -1,23 +1,25 @@
-<div *ngFor="let bat of boneappleteas; let i = index">
-  <div *ngFor="let value of bat.Values; let i = index">
-    <mat-card id="card-{{i}}" class="card" *ngIf="!value.Flag">
-      <mat-card-header>
-        <mat-card-title class="root">
-          {{bat.root | uppercase}}
-        </mat-card-title>
-      </mat-card-header>
+<div id="paul" style="margin-bottom:100px; max-height: 700px; overflow-y:auto;">
+  <div *ngFor="let bat of boneappleteas; let i = index">
+    <div style="display:flex;" *ngFor="let value of bat.Values; let i = index">
+      <mat-card id="card-{{i}}" class="card" *ngIf="!value.Flag">
+        <mat-card-header>
+          <mat-card-title class="root">
+            {{bat.root | uppercase}}
+          </mat-card-title>
+        </mat-card-header>
 
-      <mat-card-content class="replacement">
-        <p>{{value.Replacement}}</p>
-      </mat-card-content>
+        <mat-card-content class="replacement">
+          <p>{{value.Replacement}}</p>
+        </mat-card-content>
 
-      <mat-card-actions>
-        <button mat-flat-button color="warn"> deny </button>
-        <button (click)="accept(bat.root, value.Replacement, i)"
-          mat-flat-button color="primary" style="float:right;">
-          accept
-        </button>
-      </mat-card-actions>
-    </mat-card>
+        <mat-card-actions>
+          <button mat-flat-button class="deny"> deny </button>
+          <button (click)="accept(bat.root, value.Replacement, i)"
+            mat-flat-button class="accept" style="float:right;">
+            accept
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 </div>
