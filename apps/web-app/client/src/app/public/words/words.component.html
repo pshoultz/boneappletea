@@ -1,4 +1,4 @@
-<mat-grid-list cols="4" rowHeight="100px" style="display:contents;">
+<mat-grid-list cols="4" rowHeight="100px" style="display:contents; max-height:500px;">
   <form #f="ngForm" (keyup.enter)="search(f.value)">
     <mat-grid-tile colspan="4" rowspan="1">
       search database for words to use
@@ -11,14 +11,18 @@
       </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="4" rowspan="1" *ngFor="let value of boneappletea.Values">
-      <div *ngIf="done">
-        {{value.Replacement}}
+    <div id="paul" style="overflow-y:auto;">
+      <div *ngFor="let value of boneappletea.Values">
+        <div>
+          <div *ngIf="done" style="font-size:2rem">
+            {{value.Replacement}}
+          </div>
+          <div *ngIf="!done">
+            No Data
+          </div>
+        </div>
       </div>
-      <div *ngIf="!done">
-        No Data
-      </div>
-    </mat-grid-tile>
+    </div>
 
   </form>
 </mat-grid-list>  

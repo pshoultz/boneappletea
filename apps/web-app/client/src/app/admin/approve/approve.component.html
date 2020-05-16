@@ -1,4 +1,4 @@
-<div id="paul" style="margin-bottom:100px; max-height: 700px; overflow-y:auto;">
+<div style="margin-bottom:100px; max-height: 700px; overflow-y:auto;">
   <div *ngFor="let bat of boneappleteas; let i = index">
     <div style="display:flex;" *ngFor="let value of bat.Values; let i = index">
       <mat-card id="card-{{i}}" class="card" *ngIf="!value.Flag">
