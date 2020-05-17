@@ -4,7 +4,7 @@
       <mat-icon>view_list</mat-icon>
     </button>
   </mat-grid-tile>
-  <div *ngIf="show" style="margin-left:2px;">
+  <div *ngIf="show" (click)="showSideNav()" style="margin-left:2px;">
     <mat-grid-tile colspan="2" rowspan="1" class="border">
       <button mat-button routerLink="/add" routerLinkActive="active" class="link">Add</button>
     </mat-grid-tile>
