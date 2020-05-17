@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavigationComponent implements OnInit {
 
-  constructor() { }
+    private show: boolean = false;
 
-  ngOnInit() {
-  }
+    constructor() { }
+
+    ngOnInit() {
+    }
+
+    showSideNav(){
+        this.show = !this.show;
+    }
 
 }

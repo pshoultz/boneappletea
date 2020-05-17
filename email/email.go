@@ -6,10 +6,11 @@ import (
 )
 
 func Send(address string, message string) {
-	log.Println(address, message)
-	from := "use bat email here"
-	pass := "use bat email pw here"
-	to := address
+	//NOTE: i know this is sort of fucked up looking but it works for now.  will fix if it gets popular
+
+	from := "boneappleteam@gmail.com" //NOTE: who sends the email
+	pass := "rubberducky"
+	to := from //NOTE: who it came from
 
 	msg := "From: " + from + "\n" +
 		"To: " + address + "\n" +

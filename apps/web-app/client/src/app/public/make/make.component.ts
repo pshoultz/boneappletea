@@ -28,7 +28,6 @@ export class MakeComponent implements OnInit {
 
     copy(){
         var temp = document.createElement("textarea") as HTMLTextAreaElement;
-        debugger
         temp.value = this.data.boneappletea;
         document.body.appendChild(temp);
         temp.focus();

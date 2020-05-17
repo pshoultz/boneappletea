@@ -1,7 +1,24 @@
 <mat-grid-list id="sidenav" cols="2" rowHeight="100px" style="display:contents;">
   <mat-grid-tile colspan="2" rowspan="1" class="border">
-    <button mat-icon-button>
+    <button (click)="showSideNav()" mat-icon-button>
       <mat-icon>view_list</mat-icon>
     </button>
   </mat-grid-tile>
+  <div *ngIf="show" style="margin-left:2px;">
+    <mat-grid-tile colspan="2" rowspan="1" class="border">
+      <button mat-button routerLink="/add" routerLinkActive="active" class="link">Add</button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" class="border">
+      <button mat-button routerLink="/make"  routerLinkActive="active" class="link">Make</button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" class="border">
+      <button mat-button routerLink="/words" routerLinkActive="active" class="link">Search</button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" class="border">
+      <button mat-button routerLink="/donate"  routerLinkActive="active" class="link">Donate</button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1" class="border">
+      <button mat-button routerLink="/contact" routerLinkActive="active" class="link">Contact</button>
+    </mat-grid-tile>
+  </div>
 </mat-grid-list>

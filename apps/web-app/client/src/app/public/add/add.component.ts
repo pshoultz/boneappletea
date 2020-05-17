@@ -24,10 +24,23 @@ export class AddComponent implements OnInit {
         if(form.root !== undefined || form.replacement !== undefined){
             this.api.AddBat(form.root, form.replacement)
             .subscribe((data: any) => {
-                this.snackbar.open("boneappletea added!", null, {
-                    duration: 2000,
-                    panelClass: ['success']
-                });
+                debugger
+                if(data && data.includes("create ok")){
+                    this.snackbar.open("boneappletea created!", null, {
+                        duration: 2000,
+                        panelClass: ['success']
+                    });
+                }else if(data && data.incldues("boneappletea updated")){
+                    this.snackbar.open("boneappletea updated!", null, {
+                        duration: 2000,
+                        panelClass: ['success']
+                    });
+                }else{
+                    this.snackbar.open("boneappletea already exists", null, {
+                        duration: 2000,
+                        panelClass: ['error']
+                    });
+                }
             });
         }else{
             this.snackbar.open("FORM IS INCOMPLETE", null, {
