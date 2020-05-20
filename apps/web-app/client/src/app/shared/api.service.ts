@@ -6,7 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ApiService {
 
-    private url: string = "http://127.0.0.1:8080/";
+    //private url: string = "http://127.0.0.1:8080/";
+    private url: string = "http://bat-con-api:8080/";
 
     constructor(
         public http: HttpClient
