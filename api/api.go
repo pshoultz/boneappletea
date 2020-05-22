@@ -15,7 +15,7 @@ import (
 func Start() {
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"Access-Control-Allow-Origin", "*"},
+		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"PUT", "POST", "GET"},
 		//AllowHeaders: []string{"sentence", "root", "replacement"},
 		AllowHeaders:  []string{"*"},
