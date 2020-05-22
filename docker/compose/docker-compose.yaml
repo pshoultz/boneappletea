@@ -11,7 +11,7 @@ services:
         image: bat-client-img
         container_name: bat-con-client
         ports:
-          - 4200:4200
+          - 80:80
 
     database:
         image: mongo
